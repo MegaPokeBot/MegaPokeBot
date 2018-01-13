@@ -6,5 +6,9 @@
     "repository": "bitbucket:megapokebot/megapokebot",
     "author": "Matt <mmszek3000@gmail.com>",
     "license": "MIT",
-    "private": true
+    "private": true,
+    "scripts": {
+        "test": "node test.js",
+        "start": "node index.js"
+    }
 }
