@@ -1,0 +1,10 @@
+{
+    "name": "megapokebot",
+    "version": "0.1.0",
+    "description": "A Pokemon Discord bot",
+    "main": "index.js",
+    "repository": "bitbucket:megapokebot/megapokebot",
+    "author": "Matt <mmszek3000@gmail.com>",
+    "license": "MIT",
+    "private": true
+}
