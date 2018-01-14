@@ -60,8 +60,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         'title': '**Command: %help**',
                         'thumbnail': {'url': 'https://cdn.discordapp.com/embed/avatars/0.png', width: 256, height: 256},
                         'fields': [
-                            {name: '**Usage**', value: '**help**'},
-                            {name: '\t%help <command>', value: '\tDisplays help for a certain command'},
+                            {name: '**Usage**', value: '**%help [command]**'},
+                            {name: '\t%help', value: '\tLists usable commands'},
                             {name: '\t%help <command>', value: '\tDisplays help for a certain command'}
                         ],
                         'color': 0x7ae576
