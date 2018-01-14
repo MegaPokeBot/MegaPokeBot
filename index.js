@@ -57,12 +57,30 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: null,
                     embed: {
                         'authorname': 'Bot Help',
-                        'title': '**Command: %help**',
+                        'title': 'Command: %help',
                         'thumbnail': {'url': 'https://cdn.discordapp.com/embed/avatars/0.png', width: 256, height: 256},
                         'fields': [
-                            {name: '**Usage**', value: '**%help [command]**'},
+                            {name: 'Usage', value: '**%help [command]**'},
                             {name: '\t%help', value: '\tLists usable commands'},
                             {name: '\t%help <command>', value: '\tDisplays help for a certain command'}
+                        ],
+                        'color': 0x7ae576
+                    }
+                });
+
+                break;
+            case 'hello':
+            case '%hello':
+                bot.sendMessage({
+                    to: channelID,
+                    message: null,
+                    embed: {
+                        'authorname': 'Bot Help',
+                        'title': 'Command: %hello',
+                        'thumbnail': {'url': 'https://cdn.discordapp.com/embed/avatars/0.png', width: 256, height: 256},
+                        'fields': [
+                            {name: 'Usage', value: '**%hello**'},
+                            {name: '\t%hello', value: '\tSay hello to the bot!'}
                         ],
                         'color': 0x7ae576
                     }
