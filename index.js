@@ -2,6 +2,8 @@
 var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
+
+var helpIcon = {url: 'https://d30y9cdsu7xlg0.cloudfront.net/png/568541-200.png', width: 200, height: 200};
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
@@ -58,7 +60,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     embed: {
                         'authorname': 'Bot Help',
                         'title': 'Command: %help',
-                        'thumbnail': {'url': 'https://cdn.discordapp.com/embed/avatars/0.png', width: 256, height: 256},
+                        'thumbnail': helpIcon,
                         'fields': [
                             {name: 'Usage', value: '**%help [command]**'},
                             {name: '\t%help', value: '\tLists usable commands'},
@@ -77,7 +79,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     embed: {
                         'authorname': 'Bot Help',
                         'title': 'Command: %hello',
-                        'thumbnail': {'url': 'https://cdn.discordapp.com/embed/avatars/0.png', width: 256, height: 256},
+                        'thumbnail': helpIcon,
                         'fields': [
                             {name: 'Usage', value: '**%hello**'},
                             {name: '\t%hello', value: '\tSay hello to the bot!'}
@@ -90,7 +92,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             default:
                 bot.sendMessage({
                     to: channelID,
-                    message: 'List of commands: %hello, %help\nUse %help [command] for details on a certain command'
+                    message: null,
+                    embed: {
+                        'authorname': 'Bot Help',
+                        'title': 'Command List',
+                        'thumbnail': helpIcon,
+                        'description': 'Bot: `%help`\nMisc: `%hello`',
+                        'color': 0x7ae576
+                    }
                 });
             }
 
