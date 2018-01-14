@@ -3,7 +3,7 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth.json');
 
-var helpIcon = {url: 'https://d30y9cdsu7xlg0.cloudfront.net/png/568541-200.png', width: 200, height: 200};
+var helpIcon = {url: 'https://housing.umn.edu/sites/housing.umn.edu/files/help.png', width: 200, height: 200};
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
