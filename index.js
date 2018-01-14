@@ -20,6 +20,7 @@ bot.on('ready', function (evt) {
     logger.info('Connected');
     logger.info('Logged in as: ');
     logger.info(bot.username + ' - (' + bot.id + ')');
+    bot.setPresence({'game': {'name': '%help'}})
 });
 bot.on('disconnect', () => {
     logger.warn('Bot disconnected');
