@@ -98,6 +98,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         'title': 'Command List',
                         'thumbnail': helpIcon,
                         'description': 'Bot: `%help`\nMisc: `%hello`',
+                        'footer': {'text': 'use %help <command> for command-specific help'},
                         'color': 0x7ae576
                     }
                 });
