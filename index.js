@@ -84,7 +84,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     message: null,
                     embed: {
                         'authorname': 'Bot Help',
-                        'title': 'Command: %help',
+                        'title': 'Command: %banmyself',
                         'thumbnail': helpIcon,
                         'fields': [
                             {name: 'Usage', value: '**%banmyself**'},
