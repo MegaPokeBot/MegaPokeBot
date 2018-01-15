@@ -51,9 +51,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             break;
             // %banmyself
         case 'banmyself':
-            var ServerID = bot.channels[channelID].guild_id;
-            bot.sendMessage({to: userID, message: 'As you wish.'});
-            bot.ban({ServerID, UserID: userID});
+            try {
+                var ServerID = bot.channels[channelID].guild_id;
+                bot.sendMessage({to: userID, message: 'As you wish.'});
+                bot.ban({ServerID, UserID: userID});
+            } catch (e) {
+                bot.sendMessage({to: channelID, message: 'Unable to ban here.'});
+            }
             break;
         // %help
         case 'help':
