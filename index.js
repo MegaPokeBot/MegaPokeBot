@@ -1,11 +1,8 @@
-const fs = require('fs');
 const Discord = require('discord.io');
 const logger = require('winston');
 const auth = require('./auth.json');
 
 var helpIcon = {url: 'https://housing.umn.edu/sites/housing.umn.edu/files/help.png', width: 200, height: 200};
-
-const writer = fs.createWriteStream('server.log');
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
@@ -27,12 +24,6 @@ bot.on('ready', (evt) => {
 bot.on('disconnect', () => {
     logger.warn('Bot disconnected');
     bot.connect();
-});
-bot.on('any', (evt) => {
-    function write () {
-        return writer.write(JSON.stringify(evt) + '\n\n\n', 'utf-8');
-    }
-    write() || writer.once('drain', write);
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
     void evt;
@@ -58,6 +49,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 message: 'Hi there!'
             });
             break;
+            // %banmyself
+        case 'banmyself':
+            var ServerID = bot.channels[channelID].guild_id;
+            bot.sendMessage({to: userID, message: 'As you wish.'});
+            bot.ban({ServerID, UserID: userID});
+            break;
         // %help
         case 'help':
             switch (args[0]) {
@@ -72,13 +69,30 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         'thumbnail': helpIcon,
                         'fields': [
                             {name: 'Usage', value: '**%help [command]**'},
-                            {name: '\t%help', value: '\tLists usable commands'},
-                            {name: '\t%help <command>', value: '\tDisplays help for a certain command'}
+                            {name: '%help', value: 'Lists usable commands'},
+                            {name: '%help <command>', value: 'Displays help for a certain command'}
                         ],
                         'color': 0x7ae576
                     }
                 });
 
+                break;
+            case 'banmyself':
+            case '%banmyself':
+                bot.sendMessage({
+                    to: channelID,
+                    message: null,
+                    embed: {
+                        'authorname': 'Bot Help',
+                        'title': 'Command: %help',
+                        'thumbnail': helpIcon,
+                        'fields': [
+                            {name: 'Usage', value: '**%banmyself**'},
+                            {name: '%banmyself', value: 'Bans the user.'},
+                        ],
+                        'color': 0x7ae576
+                    }
+                });
                 break;
             case 'hello':
             case '%hello':
@@ -91,13 +105,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         'thumbnail': helpIcon,
                         'fields': [
                             {name: 'Usage', value: '**%hello**'},
-                            {name: '\t%hello', value: '\tSay hello to the bot!'}
+                            {name: '%hello', value: 'Say hello to the bot!'}
                         ],
                         'color': 0x7ae576
                     }
                 });
 
                 break;
+
             default:
                 bot.sendMessage({
                     to: channelID,
