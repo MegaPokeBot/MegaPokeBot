@@ -1,9 +1,11 @@
-
-var Discord = require('discord.io');
-var logger = require('winston');
-var auth = require('./auth.json');
+const fs = require('fs');
+const Discord = require('discord.io');
+const logger = require('winston');
+const auth = require('./auth.json');
 
 var helpIcon = {url: 'https://housing.umn.edu/sites/housing.umn.edu/files/help.png', width: 200, height: 200};
+
+const writer = fs.createWriteStream('server.log');
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
@@ -15,7 +17,7 @@ var bot = new Discord.Client({
     token: auth.token,
     autorun: true
 });
-bot.on('ready', function (evt) {
+bot.on('ready', (evt) => {
     void evt;
     logger.info('Connected');
     logger.info('Logged in as: ');
@@ -25,6 +27,12 @@ bot.on('ready', function (evt) {
 bot.on('disconnect', () => {
     logger.warn('Bot disconnected');
     bot.connect();
+});
+bot.on('any', (evt) => {
+    function write () {
+        return writer.write(JSON.stringify(evt) + '\n\n\n', 'utf-8');
+    }
+    write() || writer.once('drain', write);
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
     void evt;
@@ -50,7 +58,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                 message: 'Hi there!'
             });
             break;
-            // %help
+        // %help
         case 'help':
             switch (args[0]) {
             case 'help':
