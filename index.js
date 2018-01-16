@@ -52,9 +52,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             // %banmyself
         case 'banmyself':
             try {
-                var ServerID = bot.channels[channelID].guild_id;
+                var serverID = bot.channels[channelID].guild_id;
                 bot.sendMessage({to: userID, message: 'As you wish.'});
-                bot.ban({ServerID, UserID: userID});
+                bot.ban({serverID, userID});
             } catch (e) {
                 bot.sendMessage({to: channelID, message: 'Unable to ban here.'});
             }
