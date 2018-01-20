@@ -177,7 +177,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             })()
                         }
                     ],
-                    color: 0x7ae576
+                    footer: `See more on [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/${dexObj.species.split('-')[0]})`,
+                    color: 0xff3333
                 }
             });
             break;
