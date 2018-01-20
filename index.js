@@ -51,7 +51,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             .split(' ')[0]
             .toLowerCase();
         args.shift();
-        args.unshift(message.substring(1).split(' ')[1]);
+        args.unshift(message.substring(1).slice(message.substring(1).indexOf(' '), message.substring(1).indexOf('|') - 1)[1]);
         // trim whitespace
         if (args[0]) {
             for (let i = 0; i < args.length; i++) {
@@ -96,7 +96,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 }
             }
             for (var j = 0; j < stuffToRemove.length; j++) {
-                args[0] = spliceSlice(args[0], i, 1);
+                args[0] = spliceSlice(args[0], stuffToRemove[i], 1);
             }
             if (!Object.keys(dex).includes(args[0])) {
                 bot.sendMessage({
@@ -120,7 +120,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     fields: [
                         {
                             name: 'Type',
-                            value: dexObj.types.join(' ')
+                            value: dexObj.types.join(' / ')
                         },
                         {
                             name: 'Evolves into',
