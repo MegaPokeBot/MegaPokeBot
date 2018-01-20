@@ -119,7 +119,14 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     authorname: 'Pokedex',
                     title: `${dexObj.species} #${dexObj.num}`,
                     thumbnail: {
-                        url: `https://img.pokemondb.net/artwork/${dexObj.species.toLowerCase()}.jpg`
+                        url: `https://img.pokemondb.net/artwork/${dexObj.species
+                            .toLowerCase()
+                            .split(' ')
+                            .join('-')
+                            .split('.')
+                            .join('')
+                            .split(':')
+                            .join('')}.jpg`
                     },
                     fields: [
                         {
