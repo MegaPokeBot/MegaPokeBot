@@ -111,7 +111,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 message: null,
                 embed: {
                     authorname: 'Pokedex',
-                    title: 'Command: %help',
+                    title: dexObj.species,
                     thumbnail: {
                         url: `https://img.pokemondb.net/artwork/${
                             dexObj.species
