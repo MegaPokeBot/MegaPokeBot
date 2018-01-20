@@ -50,8 +50,6 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             .substring(1)
             .split(' ')[0]
             .toLowerCase();
-        args.shift();
-        args.unshift(message.substring(1).slice(message.substring(1).indexOf(' '), message.substring(1).indexOf('|') - 1)[1]);
         // trim whitespace
         if (args[0]) {
             for (let i = 0; i < args.length; i++) {
@@ -113,9 +111,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     authorname: 'Pokedex',
                     title: dexObj.species,
                     thumbnail: {
-                        url: `https://img.pokemondb.net/artwork/${
-                            dexObj.species.toLowerCase()
-                        }.jpg`
+                        url: `https://img.pokemondb.net/artwork/${dexObj.species.toLowerCase()}.jpg`
                     },
                     fields: [
                         {
@@ -168,7 +164,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         fields: [
                             {
                                 name: 'Usage',
-                                value: '**%help [command]**'
+                                value: '**%help | [command]**'
                             },
                             {
                                 name: '%help',
@@ -199,7 +195,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         fields: [
                             {
                                 name: 'Usage',
-                                value: '**%pokedex <pokemon>**'
+                                value: '**%pokedex | <pokemon>**'
                             },
                             {
                                 name: 'Shorthand',
