@@ -89,14 +89,19 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             if (!args[0]) {
                 break;
             }
-            var stuffToRemove = [], numChanged = 0;
+            var stuffToRemove = [],
+                numChanged = 0;
             for (var i = 0; i < args[0].length; i++) {
                 if (args[0][i] === '-' || args[0][i] === ' ') {
                     stuffToRemove.push(i);
                 }
             }
             for (var j = 0; j < stuffToRemove.length; j++) {
-                args[0] = spliceSlice(args[0], stuffToRemove[j] - numChanged, 1);
+                args[0] = spliceSlice(
+                    args[0],
+                    stuffToRemove[j] - numChanged,
+                    1
+                );
                 numChanged++;
             }
             if (!Object.keys(dex).includes(args[0])) {
@@ -151,6 +156,23 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             name: 'Egg Group',
                             value: dexObj.eggGroups.join(', '),
                             inline: true
+                        },
+                        {
+                            name: 'Other Formes',
+                            value: (() => {
+                                var formesResolved = [];
+                                if (!dexObj.otherFormes) return 'N/A';
+                                for (
+                                    var i = 0;
+                                    i < dexObj.otherFormes.length;
+                                    i++
+                                ) {
+                                    formesResolved.push(
+                                        dex[dexObj.otherFormes[i]].species
+                                    );
+                                }
+                                return formesResolved.join(', ');
+                            })()
                         }
                     ],
                     color: 0x7ae576
