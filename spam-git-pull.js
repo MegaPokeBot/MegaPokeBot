@@ -11,4 +11,4 @@ function gitPull() {
         console.log(`stderr: ${stderr}`);
     });
 }
-setTimeout(gitPull, 60000); // Too lazy to do the math
+setTimeout(gitPull, 10000); 
