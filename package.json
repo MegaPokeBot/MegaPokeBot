@@ -17,7 +17,8 @@
         "pull": "node spam-git-pull.js",
         "listen": "nodemon index.js",
         "server": "run-p pull listen",
-        "git-pull":"git pull && git submodule update"
+        "git-pull":"git pull",
+        "git-sub": "git submodule update"
     },
     "dependencies": {
         "discord.io": "github:woor/discord.io#gateway_v6",
