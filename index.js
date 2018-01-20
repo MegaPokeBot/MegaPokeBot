@@ -142,8 +142,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         {
                             name: 'Evolves from',
                             value: (() => {
-                                if (!dexObj.prevos) return 'N/A';
-                                return dex[dexObj.prevos[0]].species;
+                                if (!dexObj.prevo) return 'N/A';
+                                return dex[dexObj.prevo[0]].species;
                             })(),
                             inline: true
                         }
