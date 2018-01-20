@@ -87,7 +87,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             for (var j = 0; j < stuffToRemove.length; j++) {
                 args[0] = args[0].splice(i, 1);
             }
-            if (!Object.keys(dex).contains(args[0])) {
+            if (!Object.keys(dex).includes(args[0])) {
                 bot.sendMessage({
                     to: channelID,
                     message: `I could not find ${args[0]} in my pokedex.`
