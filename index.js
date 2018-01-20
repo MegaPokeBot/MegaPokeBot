@@ -119,9 +119,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     authorname: 'Pokedex',
                     title: `${dexObj.species} #${dexObj.num}`,
                     thumbnail: {
-                        url: `https://img.pokemondb.net/artwork/${
-                            dexObj.species.toLowerCase()
-                        }.jpg`
+                        url: `https://img.pokemondb.net/artwork/${dexObj.species.toLowerCase()}.jpg`
                     },
                     fields: [
                         {
@@ -177,7 +175,13 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             })()
                         }
                     ],
-                    footer: `See more on [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/${dexObj.species.split('-')[0]})`,
+                    footer: {
+                        text: `See more on [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/${
+                            dexObj.species.split('-')[0]
+                        })`,
+                        icon_url:
+                                'https://cdn.bulbagarden.net/upload/thumb/d/d4/Bulbapedia_bulb.png/60px-Bulbapedia_bulb.png'
+                    },
                     color: 0xff3333
                 }
             });
