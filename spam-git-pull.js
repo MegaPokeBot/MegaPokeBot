@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 function gitPull() {
-    exec('npm git-pull && npm git-sub', (err, stdout, stderr) => {
+    exec('git pull && git submodule update', (err, stdout, stderr) => {
         if (err) {
             // node couldn't execute the command
             throw err;
