@@ -50,6 +50,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             .substring(1)
             .split('|')[0]
             .toLowerCase();
+        args.shift();
         // trim whitespace
         if (args[0]) {
             for (let i = 0; i < args.length; i++) {
