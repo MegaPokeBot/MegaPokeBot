@@ -176,9 +176,9 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         }
                     ],
                     footer: {
-                        text: `See more on [Bulbapedia](https://bulbapedia.bulbagarden.net/wiki/${
+                        text: `See more on Bulbapedia: https://bulbapedia.bulbagarden.net/wiki/${
                             dexObj.species.split('-')[0]
-                        })`,
+                        }`,
                         icon_url:
                                 'https://cdn.bulbagarden.net/upload/thumb/d/d4/Bulbapedia_bulb.png/60px-Bulbapedia_bulb.png'
                     },
