@@ -9,6 +9,17 @@ var helpIcon = {
     width: 200,
     height: 200
 };
+function spliceSlice(str, index, count, add) {
+    // We cannot pass negative indexes dirrectly to the 2nd slicing operation.
+    if (index < 0) {
+        index = str.length + index;
+        if (index < 0) {
+            index = 0;
+        }
+    }
+
+    return str.slice(0, index) + (add || '') + str.slice(index + count);
+}
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
@@ -85,7 +96,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 }
             }
             for (var j = 0; j < stuffToRemove.length; j++) {
-                args[0] = args[0].splice(i, 1);
+                args[0] = spliceSlice(args[0], i, 1);
             }
             if (!Object.keys(dex).includes(args[0])) {
                 bot.sendMessage({
