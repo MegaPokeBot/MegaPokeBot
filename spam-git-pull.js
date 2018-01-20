@@ -11,4 +11,4 @@ function gitPull() {
         console.log(`stderr: ${stderr}`);
     });
 }
-setTimeout(gitPull, 10000);
+setInterval(gitPull, 10000);
