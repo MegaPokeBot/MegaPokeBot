@@ -112,7 +112,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 message: null,
                 embed: {
                     authorname: 'Pokedex',
-                    title: dexObj.species,
+                    title: `${dexObj.species} #${dexObj.num}`,
                     thumbnail: {
                         url: `https://img.pokemondb.net/artwork/${dexObj.species.toLowerCase()}.jpg`
                     },
@@ -145,6 +145,11 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 if (!dexObj.prevo) return 'N/A';
                                 return dex[dexObj.prevo].species;
                             })(),
+                            inline: true
+                        },
+                        {
+                            name: 'Egg Group',
+                            value: dexObj.eggGroups.join(', '),
                             inline: true
                         }
                     ],
