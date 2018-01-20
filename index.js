@@ -92,7 +92,12 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             var stuffToRemove = [],
                 numChanged = 0;
             for (var i = 0; i < args[0].length; i++) {
-                if (args[0][i] === '-' || args[0][i] === ' ') {
+                if (
+                    args[0][i] === '-' ||
+                        args[0][i] === ' ' ||
+                        args[0][i] === '.' ||
+                        args[0][i] === ':'
+                ) {
                     stuffToRemove.push(i);
                 }
             }
