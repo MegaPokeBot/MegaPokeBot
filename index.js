@@ -35,13 +35,16 @@ bot.on('message', function(user, userID, channelID, message, evt) {
     void evt;
     if (message.substring(0, 1) == '%') {
         var args = message.substring(1).split('|');
-        var cmd = message.substring(1).split(' ')[0];
+        var cmd = message
+            .substring(1)
+            .split(' ')[0]
+            .toLowerCase();
         args.shift();
         args.unshift(message.substring(1).split(' ')[1]);
         // trim whitespace
         if (args[0]) {
             for (let i = 0; i < args.length; i++) {
-                args[i] = args[i].trim();
+                args[i] = args[i].trim().toLowerCase();
             }
         } else {
             args = [];
@@ -58,15 +61,87 @@ bot.on('message', function(user, userID, channelID, message, evt) {
 
             // %randmon
         case 'randmon':
+            var randmon = listOfMons[Math.floor(Math.random() * 807)];
             bot.sendMessage({
                 to: channelID,
                 message:
                         'Your random Pokemon is: **' +
-                        listOfMons[Math.floor(Math.random() * 807)] +
-                        '**.'
+                        randmon +
+                        '**.\nUse `%pd ' +
+                        randmon +
+                        '` for more information'
             });
             break;
 
+        case 'pokedex':
+        case 'pd':
+            if (!args[0]) {
+                break;
+            }
+            var stuffToRemove = [];
+            for (var i = 0; i < args[0].length; i++) {
+                if (args[0][i] === '-' || args[0][i] === ' ') {
+                    stuffToRemove.push(i);
+                }
+            }
+            for (var j = 0; j < stuffToRemove.length; j++) {
+                args[0] = args[0].splice(i, 1);
+            }
+            if (!dex.keys().contains(args[0])) {
+                bot.sendMessage({
+                    to: channelID,
+                    message: `I could not find ${args[0]} in my pokedex.`
+                });
+                break;
+            }
+            var dexObj = dex[args[0]];
+            bot.sendMessage({
+                to: channelID,
+                message: null,
+                embed: {
+                    authorname: 'Pokedex',
+                    title: 'Command: %help',
+                    thumbnail: {
+                        url: `https://img.pokemondb.net/artwork/${
+                            dexObj.species
+                        }.jpg`
+                    },
+                    fields: [
+                        {
+                            name: 'Type',
+                            value: dexObj.type.join(' ')
+                        },
+                        {
+                            name: 'Evolves into',
+                            value: (() => {
+                                var evosResolved = [];
+                                if (!dexObj.evos) return 'N/A';
+                                for (
+                                    var i = 0;
+                                    i < dexObj.evos.length;
+                                    i++
+                                ) {
+                                    evosResolved.push(
+                                        dex[dexObj.evos[i]].species
+                                    );
+                                }
+                                return evosResolved.join(' or ');
+                            })(),
+                            inline: true
+                        },
+                        {
+                            name: 'Evolves from',
+                            value: (() => {
+                                if (!dexObj.prevos) return 'N/A';
+                                return dex[dexObj.prevos[0]].species;
+                            })(),
+                            inline: true
+                        }
+                    ],
+                    color: 0x7ae576
+                }
+            });
+            break;
             // %help
         case 'help':
             switch (args[0]) {
@@ -98,6 +173,36 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     }
                 });
 
+                break;
+            case 'pd':
+            case '%pd':
+            case 'pokedex':
+            case '%pokedex':
+                bot.sendMessage({
+                    to: channelID,
+                    message: null,
+                    embed: {
+                        authorname: 'Bot Help',
+                        title: 'Command: %pokedex',
+                        thumbnail: helpIcon,
+                        fields: [
+                            {
+                                name: 'Usage',
+                                value: '**%pokedex <pokemon>**'
+                            },
+                            {
+                                name: 'Shorthand',
+                                value: '%pd',
+                                inline: true
+                            },
+                            {
+                                name: '%pokedex <pokemon>',
+                                value: 'Searches the pokedex'
+                            }
+                        ],
+                        color: 0x7ae576
+                    }
+                });
                 break;
 
             case 'hello':
@@ -154,7 +259,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         title: 'Command List',
                         thumbnail: helpIcon,
                         description:
-                                    'Bot: `%help`\nPokemon: `%randmon`\nMisc: `%hello`',
+                                    'Bot: `%help`\nPokemon: `%pokedex`, `%randmon`\nMisc: `%hello`',
                         footer: {
                             text:
                                         'use %help <command> for command-specific help'

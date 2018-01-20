@@ -5,8 +5,6 @@ function gitPull() {
             // node couldn't execute the command
             throw err;
         }
-
-        // the *entire* stdout and stderr (buffered)
     });
 }
 setInterval(gitPull, 10000);
