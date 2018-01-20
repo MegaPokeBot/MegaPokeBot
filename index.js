@@ -55,7 +55,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             });
             break;
 
-        // %randmon
+            // %randmon
         case 'randmon':
             bot.sendMessage({
                 to: channelID,
@@ -66,7 +66,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             });
             break;
 
-        // %help
+            // %help
         case 'help':
             switch (args[0]) {
             case 'help':
@@ -152,7 +152,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         authorname: 'Bot Help',
                         title: 'Command List',
                         thumbnail: helpIcon,
-                        description: 'Bot: `%help`\nPokemon: `%randmon`\nMisc: `%hello`',
+                        description:
+                                    'Bot: `%help`\nPokemon: `%randmon`\nMisc: `%hello`',
                         footer: {
                             text:
                                         'use %help <command> for command-specific help'
