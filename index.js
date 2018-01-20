@@ -114,7 +114,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     title: dexObj.species,
                     thumbnail: {
                         url: `https://img.pokemondb.net/artwork/${
-                            dexObj.species
+                            dexObj.species.toLowerCase()
                         }.jpg`
                     },
                     fields: [
