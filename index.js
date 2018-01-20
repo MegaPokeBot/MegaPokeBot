@@ -120,10 +120,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     title: `${dexObj.species} #${dexObj.num}`,
                     thumbnail: {
                         url: `https://img.pokemondb.net/artwork/${
-                            dexObj.species.toLowerCase() +
-                                dexObj.species.toLowerCase().match(/.*-alola/)
-                                ? 'n'
-                                : ''
+                            dexObj.species.toLowerCase()
                         }.jpg`
                     },
                     fields: [
