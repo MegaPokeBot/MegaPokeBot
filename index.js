@@ -2,6 +2,7 @@ const Discord = require('discord.io');
 const logger = require('winston');
 const auth = require('./auth.json');
 const { listOfMons } = require('./listofmons.json');
+const dex = require('./dex-data/data/').BattlePokedex;
 
 var helpIcon = {
     url: 'https://housing.umn.edu/sites/housing.umn.edu/files/help.png',
