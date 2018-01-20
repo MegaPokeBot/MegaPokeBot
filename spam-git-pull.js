@@ -2,8 +2,8 @@ const { exec } = require('child_process');
 function gitPull() {
     exec('git pull && git submodule update', (err, stdout, stderr) => {
         if (err) {
-            // node couldn't execute the command
-            throw err;
+            // Quit if a current pull is already active
+            return;
         }
     });
 }
