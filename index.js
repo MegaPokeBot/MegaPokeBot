@@ -78,8 +78,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 message:
                         'Your random Pokemon is: **' +
                         randmon +
-                        '**.\nUse `%pd ' +
-                        randmon +
+                        '**.\nUse `%pd | ' +
+                        randmon.substring(4) +
                         '` for more information'
             });
             break;
