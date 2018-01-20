@@ -120,7 +120,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     fields: [
                         {
                             name: 'Type',
-                            value: dexObj.type.join(' ')
+                            value: dexObj.types.join(' ')
                         },
                         {
                             name: 'Evolves into',
