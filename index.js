@@ -98,6 +98,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             for (var j = 0; j < stuffToRemove.length; j++) {
                 argsChange = spliceSlice(args[0], stuffToRemove[j], 1);
             }
+            args[0] = argsChange;
             if (!Object.keys(dex).includes(args[0])) {
                 bot.sendMessage({
                     to: channelID,
