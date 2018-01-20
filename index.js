@@ -89,14 +89,14 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             if (!args[0]) {
                 break;
             }
-            var stuffToRemove = [];
+            var stuffToRemove = [], argsChange;
             for (var i = 0; i < args[0].length; i++) {
                 if (args[0][i] === '-' || args[0][i] === ' ') {
                     stuffToRemove.push(i);
                 }
             }
             for (var j = 0; j < stuffToRemove.length; j++) {
-                args[0] = spliceSlice(args[0], stuffToRemove[j], 1);
+                argsChange = spliceSlice(args[0], stuffToRemove[j], 1);
             }
             if (!Object.keys(dex).includes(args[0])) {
                 bot.sendMessage({
