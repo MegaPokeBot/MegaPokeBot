@@ -198,11 +198,12 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         fields: [
                             {
                                 name: 'Usage',
-                                value: '**%pokedex | <pokemon>**'
+                                value: '**%pokedex | <pokemon>**',
+                                inline: true
                             },
                             {
                                 name: 'Shorthand',
-                                value: '%pd',
+                                value: '**%pd**',
                                 inline: true
                             },
                             {
