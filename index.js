@@ -271,7 +271,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                     'Bot: `%help`\nPokemon: `%pokedex`, `%randmon`\nMisc: `%hello`',
                         footer: {
                             text:
-                                        'use %help <command> for command-specific help'
+                                        'use %help | <command> for command-specific help'
                         },
                         color: 0x7ae576
                     }
