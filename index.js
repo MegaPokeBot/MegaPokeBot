@@ -48,7 +48,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
         var args = message.substring(1).split('|');
         var cmd = message
             .substring(1)
-            .split(' ')[0]
+            .split('|')[0]
             .toLowerCase();
         // trim whitespace
         if (args[0]) {
