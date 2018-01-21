@@ -124,14 +124,38 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     authorname: 'Pokedex',
                     title: `${dexObj.species} #${dexObj.num}`,
                     thumbnail: {
-                        url: `http://play.pokemonshowdown.com/sprites/xyani/${dexObj.species
-                            .toLowerCase()
-                            .split(' ')
-                            .join('')
-                            .split('.')
-                            .join('')
-                            .split(':')
-                            .join('')}.gif`
+                        url: `http://play.pokemonshowdown.com/sprites/xyani/${(fStr => {
+                            switch (fStr) {
+                            case 'ho-oh':
+                            case 'jangmo-o':
+                            case 'hakamo-o':
+                            case 'kommo-o':
+                                return spliceSlice(
+                                    fStr,
+                                    fStr.indexOf('-'),
+                                    1
+                                );
+                            default:
+                                if (/.+-.+-.+/.test(fStr)) {
+                                    return spliceSlice(
+                                        fStr,
+                                        fStr.lastIndexOf('-'),
+                                        1
+                                    );
+                                } else {
+                                    return fStr;
+                                }
+                            }
+                        })(
+                            dexObj.species
+                                .toLowerCase()
+                                .split(' ')
+                                .join('')
+                                .split('.')
+                                .join('')
+                                .split(':')
+                                .join('')
+                        )}.gif`
                     },
                     fields: [
                         {
@@ -188,11 +212,9 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         }
                     ],
                     footer: {
-                        text: `See more on Bulbapedia: https://bulbapedia.bulbagarden.net/wiki/${
-                            dexObj.species.split('-')[0]
-                        }`,
-                        icon_url:
-                                'https://cdn.bulbagarden.net/upload/thumb/d/d4/Bulbapedia_bulb.png/60px-Bulbapedia_bulb.png'
+                        text: `See more on Serebii: https://www.serebii.net/pokedex-sm/${
+                            dexObj.num
+                        }.shtml`
                     },
                     color: 0xff3333
                 }
