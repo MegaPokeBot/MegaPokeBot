@@ -131,8 +131,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             .split('.')
                             .join('')
                             .split(':')
-                            .join('')
-                            .split('-')}.gif`
+                            .join('')}.gif`
                     },
                     fields: [
                         {
