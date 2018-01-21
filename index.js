@@ -124,14 +124,27 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     authorname: 'Pokedex',
                     title: `${dexObj.species} #${dexObj.num}`,
                     thumbnail: {
-                        url: `https://img.pokemondb.net/artwork/${dexObj.species
+                        url: `http://play.pokemonshowdown.com/sprites/xyani/${dexObj.species
                             .toLowerCase()
                             .split(' ')
-                            .join('-')
+                            .join('')
                             .split('.')
                             .join('')
                             .split(':')
-                            .join('')}.jpg`
+                            .join('')
+                            .split('-')[1] +
+                                '-' +
+                                dexObj.species
+                                    .toLowerCase()
+                                    .split(' ')
+                                    .join('')
+                                    .split('.')
+                                    .join('')
+                                    .split(':')
+                                    .join('')
+                                    .split('-')
+                                    .splice(1, 1)
+                                    .join('')}.gif`
                     },
                     fields: [
                         {
