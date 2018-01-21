@@ -132,19 +132,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             .join('')
                             .split(':')
                             .join('')
-                            .split('-')[1] +
-                                '-' +
-                                dexObj.species
-                                    .toLowerCase()
-                                    .split(' ')
-                                    .join('')
-                                    .split('.')
-                                    .join('')
-                                    .split(':')
-                                    .join('')
-                                    .split('-')
-                                    .splice(1, 1)
-                                    .join('')}.gif`
+                            .split('-')}.gif`
                     },
                     fields: [
                         {
