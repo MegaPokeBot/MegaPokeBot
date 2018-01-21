@@ -135,14 +135,18 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                     fStr.indexOf('-'),
                                     1
                                 );
-                            case 'kommo-o-totem':
-                                return 'kommoo-totem';
                             default:
                                 if (/.+-.+-.+/.test(fStr)) {
                                     return spliceSlice(
                                         fStr,
                                         fStr.lastIndexOf('-'),
                                         1
+                                    );
+                                } else if (/.+-totem/.test(fStr)) {
+                                    return spliceSlice(
+                                        fStr,
+                                        fStr.lastIndexOf('-'),
+                                        6
                                     );
                                 } else {
                                     return fStr;
