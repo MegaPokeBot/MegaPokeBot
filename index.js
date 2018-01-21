@@ -135,6 +135,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                     fStr.indexOf('-'),
                                     1
                                 );
+                            case 'kommo-o-totem':
+                                return 'kommoo-totem';
                             default:
                                 if (/.+-.+-.+/.test(fStr)) {
                                     return spliceSlice(
