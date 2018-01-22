@@ -214,7 +214,19 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                     );
                                 }
                                 return formesResolved.join(', ');
-                            })()
+                            })(),
+                            inline: true
+                        },
+                        {
+                            name: 'Base Stats',
+                            value: `${dexObj.baseStats.hp} HP, ${
+                                dexObj.baseStats.atk
+                            } Atk, ${dexObj.baseStats.def} Def, ${
+                                dexObj.baseStats.spa
+                            } SpA, ${dexObj.baseStats.spd} SpD, ${
+                                dexObj.baseStats.spe
+                            } Spe`,
+                            inline: true
                         }
                     ],
                     footer: {
