@@ -138,21 +138,21 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             case 'flab\u00E9b\u00E9':
                                 return 'flabebe';
                             default:
+                                if (/.+-totem/.test(fStr)) {
+                                    return spliceSlice(
+                                        fStr,
+                                        fStr.lastIndexOf('-'),
+                                        6
+                                    );
+                                }
                                 if (/.+-.+-.+/.test(fStr)) {
                                     return spliceSlice(
                                         fStr,
                                         fStr.lastIndexOf('-'),
                                         1
                                     );
-                                } else if (/.+-totem/.test(fStr)) {
-                                    return spliceSlice(
-                                        fStr,
-                                        fStr.lastIndexOf('-'),
-                                        6
-                                    );
-                                } else {
-                                    return fStr;
                                 }
+                                return fStr;
                             }
                         })(
                             dexObj.species
