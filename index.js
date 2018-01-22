@@ -230,7 +230,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
         case 'god':
             bot.sendMessage({
                 to: channelID,
-                message: '<378290599087964176:godnitro:>'
+                message: '<:godnitro:401805703171276800>'
             });
             break;
             // %help
