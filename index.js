@@ -161,7 +161,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 .join('')
                                 .split(':')
                                 .join('')
-                                .split('\u00E9')
+                                .split('é')
                                 .join('e')
                         )}.gif`
                     },
