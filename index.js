@@ -117,145 +117,154 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 break;
             }
             var dexObj = dex[args[0]];
-            bot.sendMessage({
-                to: channelID,
-                message: null,
-                embed: {
-                    authorname: 'Pokedex',
-                    title: `${dexObj.species} #${dexObj.num}`,
-                    thumbnail: {
-                        url: `http://play.pokemonshowdown.com/sprites/xyani/${(fStr => {
-                            switch (fStr) {
-                            case 'ho-oh':
-                            case 'jangmo-o':
-                            case 'hakamo-o':
-                            case 'kommo-o':
-                                return spliceSlice(
-                                    fStr,
-                                    fStr.indexOf('-'),
-                                    1
-                                );
-                            default:
-                                if (/.+-totem/.test(fStr)) {
+            bot.sendMessage(
+                {
+                    to: channelID,
+                    message: null,
+                    embed: {
+                        authorname: 'Pokedex',
+                        title: `${dexObj.species} #${dexObj.num}`,
+                        thumbnail: {
+                            url: `http://play.pokemonshowdown.com/sprites/xyani/${(fStr => {
+                                switch (fStr) {
+                                case 'ho-oh':
+                                case 'jangmo-o':
+                                case 'hakamo-o':
+                                case 'kommo-o':
                                     return spliceSlice(
                                         fStr,
-                                        fStr.lastIndexOf('-'),
-                                        6
-                                    );
-                                }
-                                if (/.+-.+-.+/.test(fStr)) {
-                                    return spliceSlice(
-                                        fStr,
-                                        fStr.lastIndexOf('-'),
+                                        fStr.indexOf('-'),
                                         1
                                     );
+                                default:
+                                    if (/.+-totem/.test(fStr)) {
+                                        return spliceSlice(
+                                            fStr,
+                                            fStr.lastIndexOf('-'),
+                                            6
+                                        );
+                                    }
+                                    if (/.+-.+-.+/.test(fStr)) {
+                                        return spliceSlice(
+                                            fStr,
+                                            fStr.lastIndexOf('-'),
+                                            1
+                                        );
+                                    }
+                                    return fStr;
                                 }
-                                return fStr;
+                            })(
+                                dexObj.species
+                                    .toLowerCase()
+                                    .split(' ')
+                                    .join('')
+                                    .split('.')
+                                    .join('')
+                                    .split(':')
+                                    .join('')
+                                    .split('é')
+                                    .join('e')
+                            )}.gif`
+                        },
+                        fields: [
+                            {
+                                name: 'Type',
+                                value: dexObj.types.join(' / ')
+                            },
+                            {
+                                name: 'Evolves into',
+                                value: (() => {
+                                    var evosResolved = [];
+                                    if (!dexObj.evos) return 'N/A';
+                                    for (
+                                        var i = 0;
+                                        i < dexObj.evos.length;
+                                        i++
+                                    ) {
+                                        evosResolved.push(
+                                            dex[dexObj.evos[i]].species
+                                        );
+                                    }
+                                    return evosResolved.join(' or ');
+                                })(),
+                                inline: true
+                            },
+                            {
+                                name: 'Evolves from',
+                                value: (() => {
+                                    if (!dexObj.prevo) return 'N/A';
+                                    return dex[dexObj.prevo].species;
+                                })(),
+                                inline: true
+                            },
+                            {
+                                name: 'Egg Group',
+                                value: dexObj.eggGroups.join(', '),
+                                inline: true
+                            },
+                            {
+                                name: 'Abilities',
+                                value:
+                                        dexObj.abilities['0'] +
+                                        (dexObj.abilities['1']
+                                            ? ', ' + dexObj.abilities['1']
+                                            : '') +
+                                        (dexObj.abilities['H']
+                                            ? ', Hidden: ' +
+                                              dexObj.abilities['H']
+                                            : ''),
+                                inline: true
+                            },
+                            {
+                                name: 'Other Formes',
+                                value: (() => {
+                                    var formesResolved = [];
+                                    if (!dexObj.otherFormes) return 'N/A';
+                                    for (
+                                        var i = 0;
+                                        i < dexObj.otherFormes.length;
+                                        i++
+                                    ) {
+                                        formesResolved.push(
+                                            dex[dexObj.otherFormes[i]]
+                                                .species
+                                        );
+                                    }
+                                    return formesResolved.join(', ');
+                                })(),
+                                inline: true
+                            },
+                            {
+                                name: 'Base Stats',
+                                value: `${dexObj.baseStats.hp} HP, ${
+                                    dexObj.baseStats.atk
+                                } Atk, ${dexObj.baseStats.def} Def, ${
+                                    dexObj.baseStats.spa
+                                } SpA, ${dexObj.baseStats.spd} SpD, ${
+                                    dexObj.baseStats.spe
+                                } Spe, ${dexObj.baseStats.hp +
+                                        dexObj.baseStats.atk +
+                                        dexObj.baseStats.def +
+                                        dexObj.baseStats.spa +
+                                        dexObj.baseStats.spd +
+                                        dexObj.baseStats.spe} Total`,
+                                inline: true
                             }
-                        })(
-                            dexObj.species
-                                .toLowerCase()
-                                .split(' ')
-                                .join('')
-                                .split('.')
-                                .join('')
-                                .split(':')
-                                .join('')
-                                .split('é')
-                                .join('e')
-                        )}.gif`
-                    },
-                    fields: [
-                        {
-                            name: 'Type',
-                            value: dexObj.types.join(' / ')
+                        ],
+                        footer: {
+                            text: `See more on Serebii: https://www.serebii.net/pokedex-sm/${
+                                dexObj.num
+                            }.shtml`
                         },
-                        {
-                            name: 'Evolves into',
-                            value: (() => {
-                                var evosResolved = [];
-                                if (!dexObj.evos) return 'N/A';
-                                for (
-                                    var i = 0;
-                                    i < dexObj.evos.length;
-                                    i++
-                                ) {
-                                    evosResolved.push(
-                                        dex[dexObj.evos[i]].species
-                                    );
-                                }
-                                return evosResolved.join(' or ');
-                            })(),
-                            inline: true
-                        },
-                        {
-                            name: 'Evolves from',
-                            value: (() => {
-                                if (!dexObj.prevo) return 'N/A';
-                                return dex[dexObj.prevo].species;
-                            })(),
-                            inline: true
-                        },
-                        {
-                            name: 'Egg Group',
-                            value: dexObj.eggGroups.join(', '),
-                            inline: true
-                        },
-                        {
-                            name: 'Abilities',
-                            value:
-                                    dexObj.abilities['0'] +
-                                    (dexObj.abilities['1']
-                                        ? ', ' + dexObj.abilities['1']
-                                        : '') +
-                                    (dexObj.abilities['H']
-                                        ? ', Hidden: ' + dexObj.abilities['H']
-                                        : ''),
-                            inline: true
-                        },
-                        {
-                            name: 'Other Formes',
-                            value: (() => {
-                                var formesResolved = [];
-                                if (!dexObj.otherFormes) return 'N/A';
-                                for (
-                                    var i = 0;
-                                    i < dexObj.otherFormes.length;
-                                    i++
-                                ) {
-                                    formesResolved.push(
-                                        dex[dexObj.otherFormes[i]].species
-                                    );
-                                }
-                                return formesResolved.join(', ');
-                            })(),
-                            inline: true
-                        },
-                        {
-                            name: 'Base Stats',
-                            value: `${dexObj.baseStats.hp} HP, ${
-                                dexObj.baseStats.atk
-                            } Atk, ${dexObj.baseStats.def} Def, ${
-                                dexObj.baseStats.spa
-                            } SpA, ${dexObj.baseStats.spd} SpD, ${
-                                dexObj.baseStats.spe
-                            } Spe, ${dexObj.baseStats.hp +
-                                    dexObj.baseStats.atk +
-                                    dexObj.baseStats.def +
-                                    dexObj.baseStats.spa +
-                                    dexObj.baseStats.spd +
-                                    dexObj.baseStats.spe} Total`,
-                            inline: true
-                        }
-                    ],
-                    footer: {
-                        text: `See more on Serebii: https://www.serebii.net/pokedex-sm/${
-                            dexObj.num
-                        }.shtml`
-                    },
-                    color: 0xff3333
+                        color: 0xff3333
+                    }
+                },
+                err => {
+                    if (err) {
+                        console.log(err);
+                    }
                 }
-            });
+            );
             break;
             // %god
         case 'god':
