@@ -135,6 +135,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                     fStr.indexOf('-'),
                                     1
                                 );
+                            case 'flab\u00E9b\u00E9':
+                                return 'flabebe';
                             default:
                                 if (/.+-.+-.+/.test(fStr)) {
                                     return spliceSlice(
