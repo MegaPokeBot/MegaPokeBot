@@ -259,10 +259,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         color: 0xff3333
                     }
                 },
-                err => {
-                    if (err) {
-                        console.log(err);
-                    }
+                (err, e2) => {
+                    console.log(e2);
                 }
             );
             break;
