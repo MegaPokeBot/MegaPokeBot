@@ -203,7 +203,13 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         },
                         {
                             name: 'Abilities',
-                            value: dexObj.abilities['0'] + dexObj.abilities['1']?', '+ dexObj.abilities['1'] : ''  + dexObj.abilities['H']?', Hidden: '+dexObj.abilities[H] : '',
+                            value:
+                                    dexObj.abilities['0'] +
+                                    dexObj.abilities['1']
+                                        ? ', ' + dexObj.abilities['1']
+                                        : '' + dexObj.abilities['H']
+                                            ? ', Hidden: ' + dexObj.abilities['H']
+                                            : '',
                             inline: true
                         },
                         {
