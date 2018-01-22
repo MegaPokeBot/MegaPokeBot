@@ -226,6 +226,13 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 }
             });
             break;
+            // %god
+        case 'god':
+            bot.sendMessage({
+                to: channelID,
+                message: '<378290599087964176:godnitro:>'
+            });
+            break;
             // %help
         case 'help':
             switch (args[0]) {
