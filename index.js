@@ -225,7 +225,12 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 dexObj.baseStats.spa
                             } SpA, ${dexObj.baseStats.spd} SpD, ${
                                 dexObj.baseStats.spe
-                            } Spe`,
+                            } Spe, ${dexObj.baseStats.hp +
+                                    dexObj.baseStats.atk +
+                                    dexObj.baseStats.def +
+                                    dexObj.baseStats.spa +
+                                    dexObj.baseStats.spd +
+                                    dexObj.baseStats.spe} Total`,
                             inline: true
                         }
                     ],
