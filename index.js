@@ -202,6 +202,11 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             inline: true
                         },
                         {
+                            name: 'Abilities',
+                            value: dexObj.abilities.join(', '),
+                            inline: true
+                        },
+                        {
                             name: 'Other Formes',
                             value: (() => {
                                 var formesResolved = [];
