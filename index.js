@@ -230,7 +230,14 @@ bot.on('message', function(user, userID, channelID, message, evt) {
         case 'god':
             bot.sendMessage({
                 to: channelID,
-                message: '<:godnitro:401805703171276800>'
+                message: null,
+                embed: {
+                    image: {
+                        url:
+                                'http://play.pokemonshowdown.com/sprites/xyani-shiny/magikarp.gif'
+                    },
+                    color: 0xdaa520
+                }
             });
             break;
             // %help
