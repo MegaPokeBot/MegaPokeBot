@@ -260,7 +260,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     }
                 },
                 error => {
-                    logger.info(error);
+                    console.log(error);
                 }
             );
             break;
