@@ -85,7 +85,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             break;
             
             // %shinyrowlet
-        case 'shinyrowlet'
+        case 'shinyrowlet':
             bot.sendMessage({
                 to: channelID
                 message: '<:shinyrowlet:402619773118185491>'
