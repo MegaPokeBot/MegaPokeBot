@@ -155,14 +155,10 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         })(
                             dexObj.species
                                 .toLowerCase()
-                                .split(' ')
-                                .join('')
-                                .split('.')
-                                .join('')
-                                .split(':')
-                                .join('')
-                                .split('é')
-                                .join('e')
+                                .replace(' ', '')
+                                .replace('.', '')
+                                .replace(':', '')
+                                .replace('é', 'e')
                         )}.gif`
                     },
                     fields: [
