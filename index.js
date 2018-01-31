@@ -83,7 +83,16 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         '` for more information'
             });
             break;
-
+            
+            // %shinyrowlet
+        case 'shinyrowlet':
+            bot.sendMessage({
+                to: channelID,
+                message: '<:shinyrowlet:402619773118185491>'
+            });
+            break;
+            
+            // %pokedex (or %pd)
         case 'pokedex':
         case 'pd':
             if (!args[0]) {
