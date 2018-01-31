@@ -83,7 +83,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         '` for more information'
             });
             break;
-            
+
             // %shinyrowlet
         case 'shinyrowlet':
             bot.sendMessage({
@@ -91,7 +91,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 message: '<:shinyrowlet:402619773118185491>'
             });
             break;
-            
+
             // %pokedex (or %pd)
         case 'pokedex':
         case 'pd':
@@ -267,14 +267,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
         case 'god':
             bot.sendMessage({
                 to: channelID,
-                message: null,
-                embed: {
-                    image: {
-                        url:
-                                'http://play.pokemonshowdown.com/sprites/xyani-shiny/magikarp.gif'
-                    },
-                    color: 0xdaa520
-                }
+                message: '<a:godnitro:404791673617514496>'
             });
             break;
             // %help
