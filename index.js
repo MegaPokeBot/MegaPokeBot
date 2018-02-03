@@ -112,9 +112,28 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     numChanged++;
                 }
                 if (Object.keys(aliases).includes(args[0])) {
-                    let currentOne = args[0];
-                    let stuffToRemove = [],
+                    let currentOne = aliases[args[0]],
+                        stuffToRemove = [],
                         numChanged = 0;
+                    for (var i = 0; i < currentOne.length; i++) {
+                        if (
+                            currentOne[i] === '-' ||
+                            currentOne[i] === ' ' ||
+                            currentOne[i] === '.' ||
+                            currentOne[i] === ':'
+                        ) {
+                            stuffToRemove.push(i);
+                        }
+                    }
+                    for (var j = 0; j < stuffToRemove.length; j++) {
+                        currentOne = spliceSlice(
+                            currentOne,
+                            stuffToRemove[j] - numChanged,
+                            1
+                        );
+                        numChanged++;
+                    }
+                    args[0] = currentOne;
                 }
                 if (!Object.keys(dex).includes(args[0])) {
                     bot.sendMessage({
