@@ -7,6 +7,10 @@ const aliases = require('./dex-data/data/aliases').BattleAliases;
 const moves = require('./dex-data/data/moves').BattleMovedex;
 const moveFlags = require('./moveFlags.json');
 const items = require('./dex-data/data/items');
+const monaliases = require('./self-data/aliases').PokeAliases;
+const movealiases = require('./self-data/aliases').MoveAliases;
+const abilityaliases = require('./self-data/aliases').AbilityAliases;
+const formataliases = require('./self-data/aliases').FormatAliases;
 
 var helpIcon = {
     url: 'https://housing.umn.edu/sites/housing.umn.edu/files/help.png',
@@ -114,8 +118,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 );
                 numChanged++;
             }
-            if (Object.keys(aliases).includes(args[0])) {
-                let currentOne = aliases[args[0]],
+            if (Object.keys(monaliases).includes(args[0])) {
+                let currentOne = monaliases[args[0]],
                     stuffToRemove = [],
                     numChanged = 0;
                 for (var i = 0; i < currentOne.length; i++) {
@@ -123,7 +127,9 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         currentOne[i] === '-' ||
                             currentOne[i] === ' ' ||
                             currentOne[i] === '.' ||
-                            currentOne[i] === ':'
+                            currentOne[i] === ':' ||
+                            currentOne[i] === '%' ||
+                            currentOne[i] === '\''
                     ) {
                         stuffToRemove.push(i);
                     }
@@ -283,6 +289,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 }
             });
             break;
+
             // %movedex (or %md)
         case 'movedex':
         case 'md':
@@ -309,7 +316,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 );
                 numChanged++;
             }
-            if (Object.keys(aliases).includes(args[0])) {
+            if (Object.keys(movealiases).includes(args[0])) {
                 let currentOne = aliases[args[0]],
                     stuffToRemove = [],
                     numChanged = 0;
