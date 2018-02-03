@@ -133,7 +133,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         );
                         numChanged++;
                     }
-                    args[0] = currentOne;
+                    args[0] = currentOne.toLowerCase();
                 }
                 if (!Object.keys(dex).includes(args[0])) {
                     bot.sendMessage({
