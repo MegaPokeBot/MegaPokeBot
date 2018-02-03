@@ -370,17 +370,17 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             },
                             {
                                 name: 'Power',
-                                value: moveObj.basePower,
+                                value: `${moveObj.basePower}`,
                                 inline: true
                             },
                             {
                                 name: 'PP',
-                                value: moveObj.pp,
+                                value: `${moveObj.pp}`,
                                 inline: true
                             },
                             {
                                 name: 'Priority',
-                                value: moveObj.priority,
+                                value: `${moveObj.priority}`,
                                 inline: true
                             },
                             {
