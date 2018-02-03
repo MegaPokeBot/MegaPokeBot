@@ -333,7 +333,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             to: channelID,
                             message: null,
                             embed: {
-                                authorname: 'Bot Help',
+                                author: { name: "Bot Help" },
                                 title: 'Command: %pokedex',
                                 thumbnail: helpIcon,
                                 fields: [
@@ -363,7 +363,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             to: channelID,
                             message: null,
                             embed: {
-                                authorname: 'Bot Help',
+                                author: { name: "Bot Help" },
                                 title: 'Command: %hello',
                                 thumbnail: helpIcon,
                                 fields: [
@@ -385,7 +385,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             to: channelID,
                             message: null,
                             embed: {
-                                authorname: 'Bot Help',
+                                author: { name: "Bot Help" },
                                 title: 'Command: %randmon',
                                 thumbnail: helpIcon,
                                 fields: [
@@ -407,7 +407,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             to: channelID,
                             message: null,
                             embed: {
-                                authorname: 'Bot Help',
+                                author: { name: "Bot Help" },
                                 title: 'Command: %god',
                                 thumbnail: helpIcon,
                                 fields: [
@@ -427,7 +427,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             to: channelID,
                             message: null,
                             embed: {
-                                authorname: 'Bot Help',
+                                author: { name: "Bot Help" },
                                 title: 'Command List',
                                 thumbnail: helpIcon,
                                 description:
