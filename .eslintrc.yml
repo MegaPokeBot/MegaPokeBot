@@ -1,21 +1,8 @@
 env:
   es6: true
   node: true
-extends: 'eslint:recommended'
+plugins: 
+ - prettier
+extends: prettier
 rules:
-  indent:
-    - error
-    - 4
-  linebreak-style:
-    - error
-    - windows
-  quotes:
-    - warn
-    - single
-  semi:
-    - warn
-    - always
-  no-unused-vars:
-    - off
-  no-console:
-    - off
+  prettier/prettier: error
