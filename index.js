@@ -3,7 +3,10 @@ const logger = require('winston');
 const auth = require('./auth.json');
 const { listOfMons } = require('./listofmons.json');
 const dex = require('./dex-data/data/pokedex.js').BattlePokedex;
-const aliases = require('./dex-data/data/aliases.js').BattleAliases;
+const monaliases = require('./self-data/aliases.js').PokeAliases;
+const movealiases = require('./self-data/aliases.js').MoveAliases;
+const abilityaliases = require('./self-data/aliases.js').AbilityAliases;
+const formataliases = require('./self-data/aliases.js').FormatAliases;
 
 var helpIcon = {
     url: 'https://housing.umn.edu/sites/housing.umn.edu/files/help.png',
@@ -113,8 +116,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                     );
                     numChanged++;
                 }
-                if (Object.keys(aliases).includes(args[0])) {
-                    let currentOne = aliases[args[0]],
+                if (Object.keys(monaliases).includes(args[0])) {
+                    let currentOne = monaliases[args[0]],
                         stuffToRemove = [],
                         numChanged = 0;
                     for (var i = 0; i < currentOne.length; i++) {
