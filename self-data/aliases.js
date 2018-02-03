@@ -121,7 +121,7 @@ exports.PokeAliases = {
 	"marowaka": "Marowak-Alola",
 	"alolanmarowak": "Marowak-Alola",
 
-	// PokÃ©star Studios
+	// Pokéstar Studios
 	"blackdoor": "Pokestar Black-Door",
 	"brycen": "Pokestar Brycen-Man",
 	"brycenman": "Pokestar Brycen-Man",
@@ -131,8 +131,8 @@ exports.PokeAliases = {
 	"mt": "Pokestar MT",
 	"mt2": "Pokestar MT2",
 	"majin": "Pokestar Spirit",
-	"mechatyranitar": "MT",
-	"mechatyranitar2": "MT2",
+	"mechatyranitar": "Pokestar MT",
+	"mechatyranitar2": "Pokestar MT2",
 	"monica": "Pokestar Giant",
 	"spirit": "Pokestar Spirit",
 	"transport": "Pokestar Transport",
