@@ -355,7 +355,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     author: { name: 'MoveDex' },
                     color: 0xe3b100,
                     title: moveObj.name,
-                    description: moveObj.description,
+                    description: moveObj.desc,
                     fields: [
                         {
                             name: 'Type',
