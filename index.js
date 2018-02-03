@@ -84,14 +84,6 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             });
             break;
 
-            // %shinyrowlet
-        case 'shinyrowlet':
-            bot.sendMessage({
-                to: channelID,
-                message: '<:shinyrowlet:402619773118185491>'
-            });
-            break;
-
             // %pokedex (or %pd)
         case 'pokedex':
         case 'pd':
@@ -378,6 +370,27 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 });
 
                 break;
+            case 'god':
+            case '%god':
+                bot.sendMessage({
+                    to: channelID,
+                    message: null,
+                    embed: {
+                        authorname: 'Bot Help',
+                        title: 'Command: %god',
+                        thumbnail: helpIcon,
+                        fields: [
+                            { name: 'Usage', value: '**%god**' },
+                            {
+                                name: '%god',
+                                value:
+                                        'Send the god of all Pokemon'
+                            }
+                        ],
+                        color: 0x7ae576
+                    }
+                });
+                break;
 
             default:
                 bot.sendMessage({
@@ -388,7 +401,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         title: 'Command List',
                         thumbnail: helpIcon,
                         description:
-                                    'Bot: `%help`\nPokemon: `%pokedex`, `%randmon`\nMisc: `%hello`',
+                                    'Bot: `%help`\nPokemon: `%pokedex`, `%randmon`\nMisc: `%hello`, `%god`',
                         footer: {
                             text:
                                         'use %help | <command> for command-specific help'
