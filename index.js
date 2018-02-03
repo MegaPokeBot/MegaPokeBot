@@ -98,7 +98,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                         args[0][i] === '-' ||
                         args[0][i] === ' ' ||
                         args[0][i] === '.' ||
-                        args[0][i] === ':'
+                        args[0][i] === ':' ||
+                        args[0][i] === '%' ||
+                        args[0][i] === '\''
                     ) {
                         stuffToRemove.push(i);
                     }
@@ -120,7 +122,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                             currentOne[i] === '-' ||
                             currentOne[i] === ' ' ||
                             currentOne[i] === '.' ||
-                            currentOne[i] === ':'
+                            currentOne[i] === ':' ||
+                            currentOne[i] === '%' ||
+                            currentOne[i] === '\''
                         ) {
                             stuffToRemove.push(i);
                         }
@@ -184,6 +188,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
                                     .replace(' ', '')
                                     .replace('.', '')
                                     .replace(':', '')
+                                    .replace('%', '')
+                                    .replace('\'', '')
                                     .replace('é', 'e')
                                 )}.gif`
                         },
