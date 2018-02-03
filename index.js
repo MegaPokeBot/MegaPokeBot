@@ -43,7 +43,7 @@ bot.on('disconnect', () => {
     logger.warn('Bot disconnected');
     bot.connect();
 });
-bot.on('message', function(user, userID, channelID, message, evt) {
+bot.on('message', function (user, userID, channelID, message, evt) {
     void evt;
     if (message.substring(0, 1) == '%') {
         var args = message.substring(1).split('|');
@@ -147,7 +147,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     to: channelID,
                     message: null,
                     embed: {
-                        authorname: 'Pokedex',
+                        author: { name: 'Pokedex' },
                         title: `${dexObj.species} #${dexObj.num}`,
                         thumbnail: {
                             url: `http://play.pokemonshowdown.com/sprites/xyani/${(fStr => {
@@ -185,7 +185,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                     .replace('.', '')
                                     .replace(':', '')
                                     .replace('é', 'e')
-                            )}.gif`
+                                )}.gif`
                         },
                         fields: [
                             {
@@ -227,13 +227,13 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 name: 'Abilities',
                                 value:
                                     dexObj.abilities['0'] +
-                                        (dexObj.abilities['1']
-                                            ? ', ' + dexObj.abilities['1']
-                                            : '') +
-                                        (dexObj.abilities['H']
-                                            ? ', Hidden: ' +
-                                              dexObj.abilities['H']
-                                            : '') || 'None',
+                                    (dexObj.abilities['1']
+                                        ? ', ' + dexObj.abilities['1']
+                                        : '') +
+                                    (dexObj.abilities['H']
+                                        ? ', Hidden: ' +
+                                        dexObj.abilities['H']
+                                        : '') || 'None',
                                 inline: true
                             },
                             {
@@ -258,11 +258,11 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 name: 'Base Stats',
                                 value: `${dexObj.baseStats.hp} HP, ${
                                     dexObj.baseStats.atk
-                                } Atk, ${dexObj.baseStats.def} Def, ${
+                                    } Atk, ${dexObj.baseStats.def} Def, ${
                                     dexObj.baseStats.spa
-                                } SpA, ${dexObj.baseStats.spd} SpD, ${
+                                    } SpA, ${dexObj.baseStats.spd} SpD, ${
                                     dexObj.baseStats.spe
-                                } Spe, ${dexObj.baseStats.hp +
+                                    } Spe, ${dexObj.baseStats.hp +
                                     dexObj.baseStats.atk +
                                     dexObj.baseStats.def +
                                     dexObj.baseStats.spa +
@@ -274,12 +274,18 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         footer: {
                             text: `See more on Serebii: https://www.serebii.net/pokedex-sm/${
                                 dexObj.num
-                            }.shtml`
+                                }.shtml`
                         },
                         color: 0xff3333
                     }
                 });
                 break;
+            // %movedex (or %md)
+            case 'movedex':
+            case 'md':
+
+                break;
+
             // %god
             case 'god':
                 bot.sendMessage({
@@ -296,7 +302,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             to: channelID,
                             message: null,
                             embed: {
-                                authorname: 'Bot Help',
+                                author: { name: 'Bot Help' },
                                 title: 'Command: %help',
                                 thumbnail: helpIcon,
                                 fields: [
