@@ -347,7 +347,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 });
                 break;
             }
-            var moveObj = args[0];
+            var moveObj = moves[args[0]];
             bot.sendMessage(
                 {
                     to: channelID,
