@@ -375,7 +375,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             },
                             {
                                 name: 'Category',
-                                value: `${moveObj.category}`,
+                                value: `${moveObj.basePower !== 1 ? moveObj.category : 'N/A'}`,
                                 inline: true
                             },
                             {
