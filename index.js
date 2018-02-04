@@ -498,10 +498,10 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 to: channelID,
                 message: null,
                 embed: {
-                    author: { name: 'MoveDex' },
+                    author: { name: 'ItemDex' },
                     color: 0xe3b100,
                     title: `${itemObj.name}`,
-                    description: `${moveObj.desc}`,
+                    description: `${itemObj.desc}`,
                     fields: [
                         {
                             name: 'Introduced In',
