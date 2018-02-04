@@ -99,7 +99,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 break;
             }
             if (Number(args[0]) > 0 && Number(args[0]) < 808) {
-                args[0] = listOfMons[Number(args[0]) - 1];
+                args[0] = listOfMons[Number(args[0]) - 1].substring(5);
             }
             var stuffToRemove = [],
                 numChanged = 0;
