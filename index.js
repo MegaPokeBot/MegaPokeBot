@@ -512,7 +512,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             name: 'Fling',
                             value: `${
                                 itemObj.fling
-                                    ? itemObj.fling.basePower + 'Power'
+                                    ? itemObj.fling.basePower + ' Power'
                                     : 'N/A'
                             }`,
                             inline: true
@@ -524,7 +524,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                     ? itemObj.naturalGift.type +
                                           ' / ' +
                                           itemObj.naturalGift.basePower +
-                                          'Power'
+                                          ' Power'
                                     : 'N/A'
                             }`,
                             inline: true
