@@ -370,7 +370,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             },
                             {
                                 name: 'Power',
-                                value: `${moveObj.basePower}`,
+                                value: `${moveObj.basePower === 1 ? 'N/A' : moveObj.basePower}`,
                                 inline: true
                             },
                             {
@@ -386,10 +386,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             {
                                 name: 'Z-Move',
                                 value: moveObj.isZ
-                                    ? `${items[moveObj.isZ].name ||
-                                              'Borked'}`
-                                    : `Power: ${moveObj.zMovePower ||
-                                              'Borked'}`,
+                                    ? `${items[moveObj.isZ].name}`
+                                    : `Power: ${moveObj.zMovePower}`,
                                 inline: true
                             },
                             {
