@@ -11,6 +11,7 @@ const monaliases = require('./self-data/aliases').PokeAliases;
 const movealiases = require('./self-data/aliases').MoveAliases;
 const abilityaliases = require('./self-data/aliases').AbilityAliases;
 const formataliases = require('./self-data/aliases').FormatAliases;
+const itemaliases = require('./self-data/aliases').ItemAliases;
 
 var helpIcon = {
     url: 'https://housing.umn.edu/sites/housing.umn.edu/files/help.png',
@@ -99,7 +100,9 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 break;
             }
             if (Number(args[0]) > 0 && Number(args[0]) < 808) {
-                args[0] = listOfMons[Number(args[0]) - 1].substring(5).toLowerCase();
+                args[0] = listOfMons[Number(args[0]) - 1]
+                    .substring(5)
+                    .toLowerCase();
             }
             var stuffToRemove = [],
                 numChanged = 0;
@@ -361,80 +364,176 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 break;
             }
             var moveObj = moves[args[0]];
-            bot.sendMessage(
-                {
-                    to: channelID,
-                    message: null,
-                    embed: {
-                        author: { name: 'MoveDex' },
-                        color: 0xe3b100,
-                        title: `${moveObj.name}`,
-                        description: `${moveObj.desc || moveObj.shortDesc}`,
-                        fields: [
-                            {
-                                name: 'Type',
-                                value: `${moveObj.type}`,
-                                inline: true
-                            },
-                            {
-                                name: 'Category',
-                                value: `${
-                                    moveObj.basePower !== 1
-                                        ? moveObj.category
-                                        : 'N/A'
-                                }`,
-                                inline: true
-                            },
-                            {
-                                name: 'Power',
-                                value: `${
-                                    moveObj.basePower === 1
-                                        ? 'N/A'
-                                        : moveObj.basePower
-                                }`,
-                                inline: true
-                            },
-                            {
-                                name: 'PP',
-                                value: `${moveObj.pp}`,
-                                inline: true
-                            },
-                            {
-                                name: 'Priority',
-                                value: `${moveObj.priority}`,
-                                inline: true
-                            },
-                            {
-                                name: 'Z-Move',
-                                value: moveObj.isZ
-                                    ? `${items[moveObj.isZ].name}`
-                                    : `Power: ${moveObj.zMovePower ||
-                                              'N/A'}`,
-                                inline: true
-                            },
-                            {
-                                name: 'Flags',
-                                value: Object.keys(moveObj.flags).length
-                                    ? (flags => {
-                                        let flagList = [];
-                                        flags.forEach(flag => {
-                                            flagList.push(
-                                                moveFlags[flag]
-                                            );
-                                        });
-                                        return flagList.join('\n');
-                                    })(Object.keys(moveObj.flags))
+            bot.sendMessage({
+                to: channelID,
+                message: null,
+                embed: {
+                    author: { name: 'MoveDex' },
+                    color: 0xe3b100,
+                    title: `${moveObj.name}`,
+                    description: `${moveObj.desc || moveObj.shortDesc}`,
+                    fields: [
+                        {
+                            name: 'Type',
+                            value: `${moveObj.type}`,
+                            inline: true
+                        },
+                        {
+                            name: 'Category',
+                            value: `${
+                                moveObj.basePower !== 1
+                                    ? moveObj.category
                                     : 'N/A'
-                            }
-                        ]
-                    }
-                },
-                err => {
-                    if (err) console.log(err);
+                            }`,
+                            inline: true
+                        },
+                        {
+                            name: 'Power',
+                            value: `${
+                                moveObj.basePower === 1
+                                    ? 'N/A'
+                                    : moveObj.basePower
+                            }`,
+                            inline: true
+                        },
+                        {
+                            name: 'PP',
+                            value: `${moveObj.pp}`,
+                            inline: true
+                        },
+                        {
+                            name: 'Priority',
+                            value: `${moveObj.priority}`,
+                            inline: true
+                        },
+                        {
+                            name: 'Z-Move',
+                            value: moveObj.isZ
+                                ? `${items[moveObj.isZ].name}`
+                                : `Power: ${moveObj.zMovePower || 'N/A'}`,
+                            inline: true
+                        },
+                        {
+                            name: 'Flags',
+                            value: Object.keys(moveObj.flags).length
+                                ? (flags => {
+                                    let flagList = [];
+                                    flags.forEach(flag => {
+                                        flagList.push(moveFlags[flag]);
+                                    });
+                                    return flagList.join('\n');
+                                })(Object.keys(moveObj.flags))
+                                : 'N/A'
+                        }
+                    ]
                 }
-            );
+            });
             break;
 
+            // %itemdex (or %id)
+        case 'itemdex':
+        case 'id':
+            if (!args[0]) {
+                break;
+            }
+            var stuffToRemove = [],
+                numChanged = 0;
+            for (var i = 0; i < args[0].length; i++) {
+                if (
+                    args[0][i] === '-' ||
+                        args[0][i] === ' ' ||
+                        args[0][i] === '.' ||
+                        args[0][i] === ':' ||
+                        args[0][i] === '\'' ||
+                        args[0][i] === '%' ||
+                        args[0][i] === ','
+                ) {
+                    stuffToRemove.push(i);
+                }
+            }
+            for (var j = 0; j < stuffToRemove.length; j++) {
+                args[0] = spliceSlice(
+                    args[0],
+                    stuffToRemove[j] - numChanged,
+                    1
+                );
+                numChanged++;
+            }
+            if (Object.keys(itemaliases).includes(args[0])) {
+                let currentOne = aliases[args[0]],
+                    stuffToRemove = [],
+                    numChanged = 0;
+                for (var i = 0; i < currentOne.length; i++) {
+                    if (
+                        currentOne[i] === '-' ||
+                            currentOne[i] === ' ' ||
+                            currentOne[i] === '.' ||
+                            currentOne[i] === ':' ||
+                            currentOne[i] === '%' ||
+                            currentOne[i] === '\'' ||
+                            currentOne[i] === ','
+                    ) {
+                        stuffToRemove.push(i);
+                    }
+                }
+                for (var j = 0; j < stuffToRemove.length; j++) {
+                    currentOne = spliceSlice(
+                        currentOne,
+                        stuffToRemove[j] - numChanged,
+                        1
+                    );
+                    numChanged++;
+                }
+                args[0] = currentOne.toLowerCase();
+            }
+            if (!Object.keys(items).includes(args[0])) {
+                bot.sendMessage({
+                    to: channelID,
+                    message: `I could not find ${args[0]} in my itemdex.`
+                });
+                break;
+            }
+            var itemObj = items[args[0]];
+            bot.sendMessage({
+                to: channelID,
+                message: null,
+                embed: {
+                    author: { name: 'MoveDex' },
+                    color: 0xe3b100,
+                    title: `${itemObj.name}`,
+                    description: `${moveObj.desc}`,
+                    fields: [
+                        {
+                            name: 'Introduced In',
+                            value: `Generaton ${itemObj.gen}`,
+                            inline: true
+                        },
+                        {
+                            name: 'Fling',
+                            value: `${
+                                itemObj.fling
+                                    ? itemObj.fling.basePower + 'Power'
+                                    : 'N/A'
+                            }`,
+                            inline: true
+                        },
+                        {
+                            name: 'Natural Gift',
+                            value: `${
+                                itemObj.naturalGift
+                                    ? itemObj.naturalGift.type +
+                                          ' / ' +
+                                          itemObj.naturalGift.basePower +
+                                          'Power'
+                                    : 'N/A'
+                            }`,
+                            inline: true
+                        }
+                    ]
+                }
+            });
+            break;
+            break;
             // %god
         case 'god':
             bot.sendMessage({
@@ -488,7 +587,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         fields: [
                             {
                                 name: 'Usage',
-                                value: '**%pokedex | <pokémon OR dexno>**',
+                                value:
+                                            '**%pokedex | <pokémon OR dexno>**',
                                 inline: true
                             },
                             {
@@ -498,11 +598,13 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             },
                             {
                                 name: '%pokedex | <pokémon>',
-                                value: 'Searches the pokédex for that pokémon'
+                                value:
+                                            'Searches the pokédex for that pokémon'
                             },
                             {
                                 name: '%pokedex | <dexno>',
-                                value: 'Searches the pokédex for that dex number'
+                                value:
+                                            'Searches the pokédex for that dex number'
                             }
                         ],
                         color: 0x7ae576
