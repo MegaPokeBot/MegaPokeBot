@@ -499,7 +499,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 message: null,
                 embed: {
                     author: { name: 'ItemDex' },
-                    color: 0xe3b100,
+                    color: 0x9013fe,
                     title: `${itemObj.name}`,
                     description: `${itemObj.desc}`,
                     fields: [
