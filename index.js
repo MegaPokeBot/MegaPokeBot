@@ -461,7 +461,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 value: 'Lists usable commands'
                             },
                             {
-                                name: '%help <command>',
+                                name: '%help | <command>',
                                 value:
                                             'Displays help for a certain command'
                             }
@@ -494,7 +494,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 inline: true
                             },
                             {
-                                name: '%pokedex <pokémon>',
+                                name: '%pokedex | <pokémon>',
                                 value: 'Searches the pokédex'
                             }
                         ],
@@ -517,7 +517,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         fields: [
                             {
                                 name: 'Usage',
-                                value: '**%movedex| <move>**',
+                                value: '**%movedex | <move>**',
                                 inline: true
                             },
                             {
@@ -526,7 +526,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 inline: true
                             },
                             {
-                                name: '%movedex <move>',
+                                name: '%movedex | <move>',
                                 value: 'Searches the movedex'
                             }
                         ],
