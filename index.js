@@ -151,7 +151,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 }
                 args[0] = currentOne.toLowerCase();
             }
-            args[0] = args[0].toLowerCase()
+            args[0] = args[0].toLowerCase();
             if (!Object.keys(dex).includes(args[0])) {
                 bot.sendMessage({
                     to: channelID,
