@@ -392,7 +392,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             },
                             {
                                 name: 'Flags',
-                                value: moveObj.flags
+                                value: Object.keys(moveObj.flags)
                                     ? (flags => {
                                         let flagList = [];
                                         flags.forEach(flag => {
