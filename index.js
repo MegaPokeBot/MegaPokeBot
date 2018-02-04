@@ -355,8 +355,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     embed: {
                         author: { name: 'MoveDex' },
                         color: 0xe3b100,
-                        title: moveObj.name,
-                        description: moveObj.desc,
+                        title: `${moveObj.name || 'Borked'}`,
+                        description: `${moveObj.desc || 'Borked'}`,
                         fields: [
                             {
                                 name: 'Type',
@@ -386,7 +386,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             {
                                 name: 'Z-Move',
                                 value: moveObj.isZ
-                                    ? `${items[moveObj.isZ].name || 'Borked'}`
+                                    ? `${items[moveObj.isZ].name ||
+                                              'Borked'}`
                                     : `Power: ${moveObj.zMovePower ||
                                               'Borked'}`,
                                 inline: true
