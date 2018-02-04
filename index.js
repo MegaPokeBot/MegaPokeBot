@@ -205,7 +205,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 .replace('\'','')
                                 .replace('%', '')
                                 .replace(':', '')
-                                .replace('é', 'e')
+                                .replace(/é/g, 'e')
                         )}.gif`
                     },
                     fields: [
