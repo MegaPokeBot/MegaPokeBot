@@ -360,34 +360,35 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         fields: [
                             {
                                 name: 'Type',
-                                value: moveObj.type,
+                                value: `${moveObj.type || 'Borked'}`,
                                 inline: true
                             },
                             {
                                 name: 'Category',
-                                value: moveObj.category,
+                                value: `${moveObj.category || 'Borked'}`,
                                 inline: true
                             },
                             {
                                 name: 'Power',
-                                value: `${moveObj.basePower}`,
+                                value: `${moveObj.basePower || 'Borked'}`,
                                 inline: true
                             },
                             {
                                 name: 'PP',
-                                value: `${moveObj.pp}`,
+                                value: `${moveObj.pp || 'Borked'}`,
                                 inline: true
                             },
                             {
                                 name: 'Priority',
-                                value: `${moveObj.priority}`,
+                                value: `${moveObj.priority || 'Borked'}`,
                                 inline: true
                             },
                             {
                                 name: 'Z-Move',
                                 value: moveObj.isZ
-                                    ? items[moveObj.isZ].name
-                                    : `Power: ${moveObj.zMovePower}`,
+                                    ? `${items[moveObj.isZ].name || 'Borked'}`
+                                    : `Power: ${moveObj.zMovePower ||
+                                              'Borked'}`,
                                 inline: true
                             },
                             {
