@@ -154,7 +154,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             if (!Object.keys(dex).includes(args[0])) {
                 bot.sendMessage({
                     to: channelID,
-                    message: `I could not find ${args[0]} in my pokedex.`
+                    message: `I could not find ${args[0]} in my pokédex.`
                 });
                 break;
             }
