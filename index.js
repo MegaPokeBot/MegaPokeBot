@@ -488,7 +488,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         fields: [
                             {
                                 name: 'Usage',
-                                value: '**%pokedex | <pokémon>**',
+                                value: '**%pokedex | <pokémon OR dexno>**',
                                 inline: true
                             },
                             {
@@ -498,7 +498,11 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             },
                             {
                                 name: '%pokedex | <pokémon>',
-                                value: 'Searches the pokédex'
+                                value: 'Searches the pokédex for that pokémon'
+                            },
+                            {
+                                name: '%pokedex | <dexno>',
+                                value: 'Searches the pokédex for that dex number'
                             }
                         ],
                         color: 0x7ae576
