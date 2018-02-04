@@ -527,7 +527,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             },
                             {
                                 name: '%movedex <move>',
-                                value: 'Searches the pokédex'
+                                value: 'Searches the movedex'
                             }
                         ],
                         color: 0x7ae576
