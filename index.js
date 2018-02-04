@@ -410,7 +410,42 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             name: 'Z-Move',
                             value: moveObj.isZ
                                 ? `${items[moveObj.isZ].name}`
-                                : `Power: ${moveObj.zMovePower || 'N/A'}`,
+                                : (zBoosts => {
+                                    if (!zBoosts) return;
+                                    let boosts = [];
+                                    if (zBoosts.atk)
+                                        boosts.push(
+                                            `+${zBoosts.atk} Atk`
+                                        );
+                                    if (zBoosts.def)
+                                        boosts.push(
+                                            `+${zBoosts.def} Def`
+                                        );
+                                    if (zBoosts.spa)
+                                        boosts.push(
+                                            `+${zBoosts.spa} SpA`
+                                        );
+                                    if (zBoosts.spd)
+                                        boosts.push(
+                                            `+${zBoosts.spd} SpD`
+                                        );
+                                    if (zBoosts.spe)
+                                        boosts.push(
+                                            `+${zBoosts.spe} Spe`
+                                        );
+                                    if (zBoosts.accuracy)
+                                        boosts.push(
+                                            `+${
+                                                zBoosts.accuracy
+                                            } Accuracy`
+                                        );
+                                    if (zBoosts.evasion)
+                                        boosts.push(
+                                            `+${zBoosts.evasion} Evasion`
+                                        );
+                                    return boosts.join(', ');
+                                })(moveObj.zMoveBoost) ||
+                                      `Power: ${moveObj.zMovePower || 'N/A'}`,
                             inline: true
                         },
                         {
