@@ -375,7 +375,11 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             },
                             {
                                 name: 'Category',
-                                value: `${moveObj.basePower !== 1 ? moveObj.category : 'N/A'}`,
+                                value: `${
+                                    moveObj.basePower !== 1
+                                        ? moveObj.category
+                                        : 'N/A'
+                                }`,
                                 inline: true
                             },
                             {
@@ -499,6 +503,38 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 });
                 break;
 
+            case 'md':
+            case '%md':
+            case 'movedex':
+            case '%movedex':
+                bot.sendMessage({
+                    to: channelID,
+                    message: null,
+                    embed: {
+                        author: { name: 'Bot Help' },
+                        title: 'Command: %movedex',
+                        thumbnail: helpIcon,
+                        fields: [
+                            {
+                                name: 'Usage',
+                                value: '**%movedex| <move>**',
+                                inline: true
+                            },
+                            {
+                                name: 'Shorthand',
+                                value: '**%md**',
+                                inline: true
+                            },
+                            {
+                                name: '%movedex <move>',
+                                value: 'Searches the pokédex'
+                            }
+                        ],
+                        color: 0x7ae576
+                    }
+                });
+                break;
+
             case 'hello':
             case '%hello':
                 bot.sendMessage({
@@ -573,7 +609,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         title: 'Command List',
                         thumbnail: helpIcon,
                         description:
-                                    'Bot: `%help`\nPokémon: `%pokedex`, `%randmon`\nMisc: `%hello`, `%god`',
+                                    'Bot: `%help`\nPokémon: `%pokedex`, `%movedex`, `%randmon`\nMisc: `%hello`, `%god`',
                         footer: {
                             text:
                                         'use %help | <command> for command-specific help'
