@@ -99,7 +99,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 break;
             }
             if (Number(args[0]) > 0 && Number(args[0]) < 808) {
-                args[0] = listOfMons[Number(args[0]) - 1].substring(5);
+                args[0] = listOfMons[Number(args[0]) - 1].substring(5).trim();
             }
             var stuffToRemove = [],
                 numChanged = 0;
@@ -151,7 +151,6 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 }
                 args[0] = currentOne.toLowerCase();
             }
-            args[0] = args[0].toLowerCase();
             if (!Object.keys(dex).includes(args[0])) {
                 bot.sendMessage({
                     to: channelID,
