@@ -84,7 +84,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             bot.sendMessage({
                 to: channelID,
                 message:
-                        'Your random Pokemon is: **' +
+                        'Your random Pokémon is: **' +
                         randmon +
                         '**.\nUse `%pd | ' +
                         randmon.substring(5) +
@@ -160,7 +160,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 to: channelID,
                 message: null,
                 embed: {
-                    author: { name: 'Pokedex' },
+                    author: { name: 'Pokédex' },
                     title: `${dexObj.species} #${dexObj.num}`,
                     thumbnail: {
                         url: `http://play.pokemonshowdown.com/sprites/xyani/${(fStr => {
@@ -481,7 +481,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         fields: [
                             {
                                 name: 'Usage',
-                                value: '**%pokedex | <pokemon>**',
+                                value: '**%pokedex | <pokémon>**',
                                 inline: true
                             },
                             {
@@ -490,8 +490,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 inline: true
                             },
                             {
-                                name: '%pokedex <pokemon>',
-                                value: 'Searches the pokedex'
+                                name: '%pokedex <pokémon>',
+                                value: 'Searches the pokédex'
                             }
                         ],
                         color: 0x7ae576
@@ -535,7 +535,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             {
                                 name: '%randmon',
                                 value:
-                                            'Generate a random Pokemon (no formes)'
+                                            'Generate a random Pokémon (no formes)'
                             }
                         ],
                         color: 0x7ae576
@@ -556,7 +556,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             { name: 'Usage', value: '**%god**' },
                             {
                                 name: '%god',
-                                value: 'Send the god of all Pokemon'
+                                value: 'Send the god of all Pokémon'
                             }
                         ],
                         color: 0x7ae576
@@ -573,7 +573,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         title: 'Command List',
                         thumbnail: helpIcon,
                         description:
-                                    'Bot: `%help`\nPokemon: `%pokedex`, `%randmon`\nMisc: `%hello`, `%god`',
+                                    'Bot: `%help`\nPokémon: `%pokedex`, `%randmon`\nMisc: `%hello`, `%god`',
                         footer: {
                             text:
                                         'use %help | <command> for command-specific help'
