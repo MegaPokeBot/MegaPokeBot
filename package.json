@@ -18,7 +18,7 @@
         "listen": "nodemon index.js",
         "server": "run-p pull listen",
         "git-pull": "git pull",
-        "git-sub": "git submodule update"
+        "git-sub": "git submodule update --recursive"
     },
     "dependencies": {
         "discord.io": "github:woor/discord.io#gateway_v6",
