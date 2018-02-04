@@ -395,7 +395,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 name: 'Z-Move',
                                 value: moveObj.isZ
                                     ? `${items[moveObj.isZ].name}`
-                                    : `Power: ${moveObj.zMovePower}`,
+                                    : `Power: ${moveObj.zMovePower || 'N/A'}`,
                                 inline: true
                             },
                             {
