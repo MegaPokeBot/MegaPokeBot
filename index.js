@@ -181,7 +181,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                     1
                                 );
                             case 'nidoran-m':
-                                return 'nidoran'
+                                return 'nidoran';
                             default:
                                 if (/.+-totem/.test(fStr)) {
                                     return spliceSlice(
