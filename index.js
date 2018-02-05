@@ -180,6 +180,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                     fStr.indexOf('-'),
                                     1
                                 );
+                            case 'nidoran-m':
+                                return 'nidoran'
                             default:
                                 if (/.+-totem/.test(fStr)) {
                                     return spliceSlice(
