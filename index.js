@@ -602,11 +602,28 @@ bot.on('message', function(user, userID, channelID, message, evt) {
 
             var serverID = bot.channels[channelID].guild_id;
             var victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '');
+            // Check if in a server
+            if (!bot.servers[serverID]) {
+                bot.sendMessage({
+                    to: channelID,
+                    message: 'I\'m pretty sure I can\'t do that here.'
+                });
+            }
+            // Check if user exists
+            if (!bot.servers[serverID].members) {
+                bot.sendMessage({
+                    to: channelID,
+                    message: `Who's ${victimID}?`
+                });
+                break;
+            }
             // Check for mod status (kick members)
-            if (!(
+            if (
+                !(
                     bot.servers[serverID].members[userID].permissions & 2 ||
                         bot.servers[serverID].members[userID].permissions | 8
-                )) {
+                )
+            ) {
                 bot.sendMessage({
                     to: channelID,
                     message: texts.noMod[
@@ -637,6 +654,21 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 bot.sendMessage({
                     to: channelID,
                     message: 'how 2 mute lol'
+                });
+                break;
+            }
+            // Check if in a server
+            if (!bot.servers[serverID]) {
+                bot.sendMessage({
+                    to: channelID,
+                    message: 'I\'m pretty sure I can\'t do that here.'
+                });
+            }
+            // Check if user exists
+            if (!bot.servers[serverID].members) {
+                bot.sendMessage({
+                    to: channelID,
+                    message: `Who's ${victimID}?`
                 });
                 break;
             }
