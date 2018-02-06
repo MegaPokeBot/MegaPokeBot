@@ -600,17 +600,23 @@ bot.on('message', function(user, userID, channelID, message, evt) {
         case 'warn':
             if (!args[0]) break;
 
-            var serverID = bot.channels[channelID].guild_id;
-            var victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '');
             // Check if in a server
-            if (!bot.servers[serverID]) {
+            if (!bot.channels[channelID].guild_id) {
                 bot.sendMessage({
                     to: channelID,
                     message: 'I\'m pretty sure I can\'t do that here.'
                 });
+                break;
+            }
+            var serverID = bot.channels[channelID].guild_id;
+            var victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '');
+            // Don't do it to the bot
+            if ((victimID = bot.id)) {
+                bot.sendMessage({ to: channelID, message: 'lolno' });
+                break;
             }
             // Check if user exists
-            if (!bot.servers[serverID].members) {
+            if (!bot.servers[serverID].members[victimID]) {
                 bot.sendMessage({
                     to: channelID,
                     message: `Who's ${victimID}?`
@@ -648,6 +654,14 @@ bot.on('message', function(user, userID, channelID, message, evt) {
         case 'mute':
             if (!(args[0] && args[1])) break;
 
+            // Check if in a server
+            if (!bot.channels[channelID].guild_id) {
+                bot.sendMessage({
+                    to: channelID,
+                    message: 'I\'m pretty sure I can\'t do that here.'
+                });
+                break;
+            }
             var serverID = bot.channels[channelID].guild_id;
             var victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '');
             if (!config.muteRoles[serverID]) {
@@ -657,15 +671,13 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 });
                 break;
             }
-            // Check if in a server
-            if (!bot.servers[serverID]) {
-                bot.sendMessage({
-                    to: channelID,
-                    message: 'I\'m pretty sure I can\'t do that here.'
-                });
+            // Don't do it to the bot
+            if (victimID == bot.id) {
+                bot.sendMessage({ to: channelID, message: 'lolno' });
+                break;
             }
             // Check if user exists
-            if (!bot.servers[serverID].members) {
+            if (!bot.servers[serverID].members[victimID]) {
                 bot.sendMessage({
                     to: channelID,
                     message: `Who's ${victimID}?`
