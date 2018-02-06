@@ -656,7 +656,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 to: victimID,
                 message: `You have been muted in ${
                     bot.servers[serverID].name
-                }${args[2] ? ` with this message: ${args[1]}` : ''}`
+                }${args[2] ? ` with this message: ${args[2]}` : ''}`
             });
             bot.sendMessage({
                 to: channelID,
