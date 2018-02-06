@@ -12,5 +12,6 @@
     "ban": [
         "Moderator used Ban! **%u** cannot use send message after the ban!",
         "Moderator's Ban! **%u**'s rule break was disabled!"
-    ]
+    ],
+    "noMod": ["**%u** has no moderator perms! %u used Struggle!"]
 }
