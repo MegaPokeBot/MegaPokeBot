@@ -587,6 +587,14 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 message: '<a:godnitro:404791673617514496>'
             });
             break;
+        
+            // %source
+        case 'source':
+            bot.sendMessage({
+                to: channelID,
+                message: 'https://bitbucket.org/megapokebot/megapokebot'
+            })
+            break;
             // %help
         case 'help':
             switch (args[0]) {
@@ -618,6 +626,27 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     }
                 });
 
+                break;
+            
+            case 'source':
+            case '%source':
+                bot.sendMessage({
+                    to: channelID,
+                    message: null,
+                    embed: {
+                        author: { name: 'Bot Help' },
+                        title: 'Command: %source',
+                        thumbnail: helpIcon,
+                        fields: [
+                            { name: 'Usage', value: '**%source**' },
+                            {
+                                name: '%source',
+                                value: 'See the source code of :mega: :point_right: :robot:'
+                            }
+                        ],
+                        color: 0x7ae576
+                    }
+                });
                 break;
             case 'pd':
             case '%pd':
@@ -764,7 +793,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         title: 'Command List',
                         thumbnail: helpIcon,
                         description:
-                                    'Bot: `%help`\nPokémon: `%pokedex`, `%movedex`, `%randmon`\nMisc: `%hello`, `%god`',
+                                    'Bot: `%help`, `%source`\nPokémon: `%pokedex`, `%movedex`, `%randmon`\nMisc: `%hello`, `%god`',
                         footer: {
                             text:
                                         'use %help | <command> for command-specific help'
