@@ -625,6 +625,58 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 ].replace(/%u/g, bot.users[victimID].username)
             });
             break;
+        case 'mute':
+            if (!(args[0] && args[1])) break;
+
+            var serverID = bot.channels[channelID].guild_id;
+            var victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '');
+            if (!config.muteRoles[serverID]) {
+                bot.sendMessage({
+                    to: channelID,
+                    message: 'how 2 mute lol'
+                });
+                break;
+            }
+            // Check for mod status (kick members)
+            if (
+                !(
+                    bot.servers[serverID].members[userID].permissions & 2 ||
+                        bot.servers[serverID].members[userID].permissions | 8
+                )
+            ) {
+                bot.sendMessage({
+                    to: channelID,
+                    message: texts.noMod[
+                        Math.floor(Math.random() * texts.noMod.length)
+                    ].replace(/%u/g, bot.users[userID].username)
+                });
+                break;
+            }
+            bot.sendMessage({
+                to: victimID,
+                message: `You have been muted in ${
+                    bot.servers[serverID].name
+                }${args[2] ? ` with this message: ${args[1]}` : ''}`
+            });
+            bot.sendMessage({
+                to: channelID,
+                message: texts.mute[
+                    Math.floor(Math.random() * texts.mute.length)
+                ].replace(/%u/g, bot.users[victimID].username)
+            });
+            bot.addToRole({
+                serverID: serverID,
+                userID: victimID,
+                roleID: config.muteRoles[serverID]
+            });
+            setTimeout(() => {
+                bot.removeFromRole({
+                    serverID: serverID,
+                    userID: victimID,
+                    roleID: config.muteRoles[serverID]
+                });
+            }, Number(args[1]) * 1000 * 60);
+            break;
             // %help
         case 'help':
             switch (args[0]) {
