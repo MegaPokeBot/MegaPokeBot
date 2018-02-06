@@ -601,7 +601,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             if (!args[0]) break;
 
             // Check if in a server
-            if (!bot.channels[channelID].guild_id) {
+            if (!bot.channels[channelID]) {
                 bot.sendMessage({
                     to: channelID,
                     message: 'I\'m pretty sure I can\'t do that here.'
@@ -655,7 +655,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             if (!(args[0] && args[1])) break;
 
             // Check if in a server
-            if (!bot.channels[channelID].guild_id) {
+            if (!bot.channels[channelID]) {
                 bot.sendMessage({
                     to: channelID,
                     message: 'I\'m pretty sure I can\'t do that here.'
