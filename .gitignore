@@ -60,5 +60,5 @@ typings/
 # next.js build output
 .next
 
-# Auth Token When Repo Becomes Public
-auth.json
+# Auth token and other personal config
+.config.json

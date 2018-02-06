@@ -1,6 +1,6 @@
 const Discord = require('discord.io');
 const logger = require('winston');
-const auth = require('./auth.json');
+const config = require('./.config.json');
 const { listOfMons } = require('./listofmons.json');
 const dex = require('./dex-data/data/pokedex').BattlePokedex;
 const aliases = require('./dex-data/data/aliases').BattleAliases;
@@ -12,6 +12,7 @@ const movealiases = require('./self-data/aliases').MoveAliases;
 const abilityaliases = require('./self-data/aliases').AbilityAliases;
 const formataliases = require('./self-data/aliases').FormatAliases;
 const itemaliases = require('./self-data/aliases').ItemAliases;
+const prefix = config.prefix || '%';
 
 var helpIcon = {
     url: 'https://housing.umn.edu/sites/housing.umn.edu/files/help.png',
@@ -37,15 +38,15 @@ logger.add(logger.transports.Console, {
 logger.level = 'debug';
 // Initialize Discord Bot
 var bot = new Discord.Client({
-    token: auth.token,
+    token: config.token,
     autorun: true
 });
 bot.on('ready', evt => {
     void evt;
     logger.info('Connected');
     logger.info('Logged in as: ');
-    logger.info(bot.username + ' - (' + bot.id + ')');
-    bot.setPresence({ game: { name: '%help' } });
+    logger.info(`${bot.username  } - (${  bot.id  })`);
+    bot.setPresence({ game: { name: `${prefix}help` } });
 });
 bot.on('disconnect', () => {
     logger.warn('Bot disconnected');
@@ -53,7 +54,7 @@ bot.on('disconnect', () => {
 });
 bot.on('message', function(user, userID, channelID, message, evt) {
     void evt;
-    if (message.substring(0, 1) == '%') {
+    if (message.substring(0, 1) == prefix) {
         var args = message.substring(1).split('|');
         var cmd = message
             .substring(1)
@@ -84,12 +85,9 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             var randmon = listOfMons[Math.floor(Math.random() * 807)];
             bot.sendMessage({
                 to: channelID,
-                message:
-                        'Your random Pokémon is: **' +
-                        randmon +
-                        '**.\nUse `%pd | ' +
-                        randmon.substring(5) +
-                        '` for more information'
+                message: `Your random Pokémon is: **${randmon}**.\nUse \`${prefix}pd | ${randmon.substring(
+                    5
+                )} +\` for more information`
             });
             break;
 
@@ -204,7 +202,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                                 .toLowerCase()
                                 .replace(' ', '')
                                 .replace('.', '')
-                                .replace('\'','')
+                                .replace('\'', '')
                                 .replace('%', '')
                                 .replace(':', '')
                                 .replace(/é/g, 'e')
@@ -251,11 +249,11 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             value:
                                     dexObj.abilities['0'] +
                                         (dexObj.abilities['1']
-                                            ? ', ' + dexObj.abilities['1']
+                                            ? `, ${  dexObj.abilities['1']}`
                                             : '') +
                                         (dexObj.abilities['H']
-                                            ? ', Hidden: ' +
-                                              dexObj.abilities['H']
+                                            ? `, Hidden: ${ 
+                                                dexObj.abilities['H']}`
                                             : '') || 'None',
                             inline: true
                         },
@@ -558,7 +556,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             name: 'Fling',
                             value: `${
                                 itemObj.fling
-                                    ? itemObj.fling.basePower + ' Power'
+                                    ? `${itemObj.fling.basePower  } Power`
                                     : 'N/A'
                             }`,
                             inline: true
@@ -567,10 +565,10 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                             name: 'Natural Gift',
                             value: `${
                                 itemObj.naturalGift
-                                    ? itemObj.naturalGift.type +
-                                          ' / ' +
-                                          itemObj.naturalGift.basePower +
-                                          ' Power'
+                                    ? `${itemObj.naturalGift.type 
+                                    } / ${ 
+                                        itemObj.naturalGift.basePower 
+                                    } Power`
                                     : 'N/A'
                             }`,
                             inline: true
@@ -587,37 +585,38 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 message: '<a:godnitro:404791673617514496>'
             });
             break;
-        
+
             // %source
         case 'source':
             bot.sendMessage({
                 to: channelID,
                 message: 'https://bitbucket.org/megapokebot/megapokebot'
-            })
+            });
             break;
             // %help
         case 'help':
             switch (args[0]) {
             case 'help':
-            case '%help':
+            case `${  prefix  }help`:
                 bot.sendMessage({
                     to: channelID,
                     message: null,
                     embed: {
                         author: { name: 'Bot Help' },
-                        title: 'Command: %help',
+                        title: `Command: ${  prefix  }help`,
                         thumbnail: helpIcon,
                         fields: [
                             {
                                 name: 'Usage',
-                                value: '**%help | [command]**'
+                                value:
+                                            `**${  prefix  }help | [command]**`
                             },
                             {
-                                name: '%help',
+                                name: `${  prefix  }help`,
                                 value: 'Lists usable commands'
                             },
                             {
-                                name: '%help | <command>',
+                                name: `${  prefix  }help | <command>`,
                                 value:
                                             'Displays help for a certain command'
                             }
@@ -627,21 +626,25 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 });
 
                 break;
-            
+
             case 'source':
-            case '%source':
+            case `${  prefix  }source`:
                 bot.sendMessage({
                     to: channelID,
                     message: null,
                     embed: {
                         author: { name: 'Bot Help' },
-                        title: 'Command: %source',
+                        title: `Command: ${  prefix  }source`,
                         thumbnail: helpIcon,
                         fields: [
-                            { name: 'Usage', value: '**%source**' },
                             {
-                                name: '%source',
-                                value: 'See the source code of :mega: :point_right: :robot:'
+                                name: 'Usage',
+                                value: `**${  prefix  }source**`
+                            },
+                            {
+                                name: `${  prefix  }source`,
+                                value:
+                                            'See the source code of :mega: :point_right: :robot:'
                             }
                         ],
                         color: 0x7ae576
@@ -649,35 +652,38 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 });
                 break;
             case 'pd':
-            case '%pd':
+            case `${  prefix  }pd`:
             case 'pokedex':
-            case '%pokedex':
+            case `${  prefix  }pokedex`:
                 bot.sendMessage({
                     to: channelID,
                     message: null,
                     embed: {
                         author: { name: 'Bot Help' },
-                        title: 'Command: %pokedex',
+                        title: `Command: ${  prefix  }pokedex`,
                         thumbnail: helpIcon,
                         fields: [
                             {
                                 name: 'Usage',
                                 value:
-                                            '**%pokedex | <pokémon OR dexno>**',
+                                            `**${ 
+                                                prefix 
+                                            }pokedex | <pokémon OR dexno>**`,
                                 inline: true
                             },
                             {
                                 name: 'Shorthand',
-                                value: '**%pd**',
+                                value: `**${  prefix  }pd**`,
                                 inline: true
                             },
                             {
-                                name: '%pokedex | <pokémon>',
+                                name:
+                                            `${  prefix  }pokedex | <pokémon>`,
                                 value:
                                             'Searches the pokédex for that pokémon'
                             },
                             {
-                                name: '%pokedex | <dexno>',
+                                name: `${  prefix  }pokedex | <dexno>`,
                                 value:
                                             'Searches the pokédex for that dex number'
                             }
@@ -688,29 +694,32 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 break;
 
             case 'md':
-            case '%md':
+            case `${  prefix  }md`:
             case 'movedex':
-            case '%movedex':
+            case `${  prefix  }movedex`:
                 bot.sendMessage({
                     to: channelID,
                     message: null,
                     embed: {
                         author: { name: 'Bot Help' },
-                        title: 'Command: %movedex',
+                        title: `Command: ${  prefix  }movedex`,
                         thumbnail: helpIcon,
                         fields: [
                             {
                                 name: 'Usage',
-                                value: '**%movedex | <move>**',
+                                value:
+                                            `**${ 
+                                                prefix 
+                                            }movedex | <move>**`,
                                 inline: true
                             },
                             {
                                 name: 'Shorthand',
-                                value: '**%md**',
+                                value: `**${  prefix  }md**`,
                                 inline: true
                             },
                             {
-                                name: '%movedex | <move>',
+                                name: `${  prefix  }movedex | <move>`,
                                 value: 'Searches the movedex'
                             }
                         ],
@@ -720,18 +729,21 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 break;
 
             case 'hello':
-            case '%hello':
+            case `${  prefix  }hello`:
                 bot.sendMessage({
                     to: channelID,
                     message: null,
                     embed: {
                         author: { name: 'Bot Help' },
-                        title: 'Command: %hello',
+                        title: `Command: ${  prefix  }hello`,
                         thumbnail: helpIcon,
                         fields: [
-                            { name: 'Usage', value: '**%hello**' },
                             {
-                                name: '%hello',
+                                name: 'Usage',
+                                value: `**${  prefix  }hello**`
+                            },
+                            {
+                                name: `${  prefix  }hello`,
                                 value: 'Say hello to the bot!'
                             }
                         ],
@@ -742,18 +754,21 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 break;
 
             case 'randmon':
-            case '%randmon':
+            case `${  prefix  }randmon`:
                 bot.sendMessage({
                     to: channelID,
                     message: null,
                     embed: {
                         author: { name: 'Bot Help' },
-                        title: 'Command: %randmon',
+                        title: `Command: ${  prefix  }randmon`,
                         thumbnail: helpIcon,
                         fields: [
-                            { name: 'Usage', value: '**%randmon**' },
                             {
-                                name: '%randmon',
+                                name: 'Usage',
+                                value: `**${  prefix  }randmon**`
+                            },
+                            {
+                                name: `${  prefix  }randmon`,
                                 value:
                                             'Generate a random Pokémon (no formes)'
                             }
@@ -764,18 +779,21 @@ bot.on('message', function(user, userID, channelID, message, evt) {
 
                 break;
             case 'god':
-            case '%god':
+            case `${  prefix  }god`:
                 bot.sendMessage({
                     to: channelID,
                     message: null,
                     embed: {
                         author: { name: 'Bot Help' },
-                        title: 'Command: %god',
+                        title: `Command: ${  prefix  }god`,
                         thumbnail: helpIcon,
                         fields: [
-                            { name: 'Usage', value: '**%god**' },
                             {
-                                name: '%god',
+                                name: 'Usage',
+                                value: `**${  prefix  }god**`
+                            },
+                            {
+                                name: `${  prefix  }god`,
                                 value: 'Send the god of all Pokémon'
                             }
                         ],
@@ -793,10 +811,26 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         title: 'Command List',
                         thumbnail: helpIcon,
                         description:
-                                    'Bot: `%help`, `%source`\nPokémon: `%pokedex`, `%movedex`, `%randmon`\nMisc: `%hello`, `%god`',
+                                    `Bot: \`${ 
+                                        prefix 
+                                    }help\`, \`${ 
+                                        prefix 
+                                    }source\`\nPokémon: \`${ 
+                                        prefix 
+                                    }pokedex\`, \`${ 
+                                        prefix 
+                                    }movedex\`, \`${ 
+                                        prefix 
+                                    }randmon\`\nMisc: \`${ 
+                                        prefix 
+                                    }hello\`, \`${ 
+                                        prefix 
+                                    }god\``,
                         footer: {
                             text:
-                                        'use %help | <command> for command-specific help'
+                                        `use ${ 
+                                            prefix 
+                                        }help | <command> for command-specific help`
                         },
                         color: 0x7ae576
                     }
