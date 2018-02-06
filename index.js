@@ -87,7 +87,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 to: channelID,
                 message: `Your random Pokémon is: **${randmon}**.\nUse \`${prefix}pd | ${randmon.substring(
                     5
-                )} +\` for more information`
+                )}\` for more information`
             });
             break;
 
