@@ -611,7 +611,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 to: channelID,
                 message: texts.warn[
                     Math.floor(Math.random() * texts.warn.length)
-                ].replace(/%u/g, bot.users[userID].username)
+                ].replace(/%u/g, bot.users[victimID].username)
             });
             break;
             // %help
