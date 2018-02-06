@@ -56,10 +56,10 @@ bot.on('disconnect', () => {
 });
 bot.on('message', function(user, userID, channelID, message, evt) {
     void evt;
-    if (message.substring(0, 1) == prefix) {
-        var args = message.substring(1).split('|');
+    if (message.substring(0, prefix.length) == prefix) {
+        var args = message.substring(prefix.length).split('|');
         var cmd = message
-            .substring(1)
+            .substring(prefix.length)
             .split('|')[0]
             .toLowerCase()
             .trim();
