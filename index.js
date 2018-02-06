@@ -603,14 +603,15 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             var serverID = bot.channels[channelID].guild_id;
             var victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '');
             // Check for mod status (kick members)
-            if (!(bot.servers[serverID].members[userID].permissions & 2))
+            if (!(bot.servers[serverID].members[userID].permissions & 2)) {
                 bot.sendMessage({
                     to: channelID,
                     message: texts.noMod[
                         Math.floor(Math.random() * texts.noMod.length)
                     ].replace(/%u/g, bot.users[userID].username)
                 });
-            break;
+                break;
+            }
             bot.sendMessage({
                 to: victimID,
                 message: `You have been warned in ${
