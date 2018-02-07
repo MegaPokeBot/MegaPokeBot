@@ -626,8 +626,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             // Check for mod status (kick members)
             if (
                 !(
-                    bot.servers[serverID].members[userID].permissions & 2 ||
-                        bot.servers[serverID].members[userID].permissions | 8
+                    (bot.servers[serverID].members[userID].permissions & 2) ||
+                       ( bot.servers[serverID].members[userID].permissions | 8)
                 )
             ) {
                 bot.sendMessage({
@@ -687,8 +687,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             // Check for mod status (kick members)
             if (
                 !(
-                    bot.servers[serverID].members[userID].permissions & 2 ||
-                        bot.servers[serverID].members[userID].permissions | 8
+                    (bot.servers[serverID].members[userID].permissions & 2) ||(
+                        bot.servers[serverID].members[userID].permissions | 8)
                 )
             ) {
                 bot.sendMessage({
