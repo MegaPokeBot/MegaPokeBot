@@ -611,7 +611,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             var serverID = bot.channels[channelID].guild_id;
             var victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '');
             // Don't do it to the bot
-            if ((victimID == bot.id)) {
+            if (victimID == bot.id) {
                 bot.sendMessage({ to: channelID, message: 'lolno' });
                 break;
             }
@@ -626,8 +626,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             // Check for mod status (kick members)
             if (
                 !(
-                    (bot.servers[serverID].members[userID].permissions & 2) ||
-                       ( bot.servers[serverID].members[userID].permissions | 8)
+                    bot.servers[serverID].members[userID].permissions & 2 ||
+                        bot.servers[serverID].members[userID].permissions & 8
                 )
             ) {
                 bot.sendMessage({
@@ -687,8 +687,8 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             // Check for mod status (kick members)
             if (
                 !(
-                    (bot.servers[serverID].members[userID].permissions & 2) ||(
-                        bot.servers[serverID].members[userID].permissions | 8)
+                    bot.servers[serverID].members[userID].permissions & 2 ||
+                        bot.servers[serverID].members[userID].permissions & 8
                 )
             ) {
                 bot.sendMessage({
