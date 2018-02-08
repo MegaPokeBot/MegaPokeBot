@@ -32,6 +32,11 @@ function spliceSlice(str, index, count, add) {
 
     return str.slice(0, index) + (add || '') + str.slice(index + count);
 }
+// For checking perms
+function arrayItemFor(array, condition) {
+    for (var i = 0; i < array.length; i++) if (condition(array[i])) return true;
+    return false;
+}
 // Configure logger settings
 logger.remove(logger.transports.Console);
 logger.add(logger.transports.Console, {
@@ -625,9 +630,10 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             }
             // Check for mod status (kick members)
             if (
-                !(
-                    bot.servers[serverID].members[userID].permissions & 2 ||
-                        bot.servers[serverID].members[userID].permissions & 8
+                !arrayItemFor(
+                    bot.servers[serverID].members[userID].roles,
+                    item =>
+                        bot.servers[serverID].roles[item]._permissions & 2
                 )
             ) {
                 bot.sendMessage({
@@ -686,9 +692,10 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             }
             // Check for mod status (kick members)
             if (
-                !(
-                    bot.servers[serverID].members[userID].permissions & 2 ||
-                        bot.servers[serverID].members[userID].permissions & 8
+                !arrayItemFor(
+                    bot.servers[serverID].members[userID].roles,
+                    item =>
+                        bot.servers[serverID].roles[item]._permissions & 2
                 )
             ) {
                 bot.sendMessage({
