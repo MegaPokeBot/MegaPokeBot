@@ -931,6 +931,64 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                     }
                 });
                 break;
+            case 'warn':
+            case `${prefix}warn`:
+                bot.sendMessage({
+                    to: channelID,
+                    message: null,
+                    embed: {
+                        author: { name: 'Bot Help' },
+                        title: `Command: ${prefix}warn`,
+                        thumbnail: helpIcon,
+                        fields: [
+                            {
+                                name: 'Usage',
+                                value: `**${prefix}warn | <user> | [reason]**`
+                            },
+                            {
+                                name: `${prefix}warn | <user>`,
+                                value:
+                                            'Warn the user (requires kick members permission)'
+                            },
+                            {
+                                name: `${prefix}warn | <user> | <reason>`,
+                                value:
+                                            'Warn the user and specify a reason (requires kick members permission)'
+                            }
+                        ],
+                        color: 0x7ae576
+                    }
+                });
+                break;
+            case 'mute':
+            case `${prefix}mute`:
+                bot.sendMessage({
+                    to: channelID,
+                    message: null,
+                    embed: {
+                        author: { name: 'Bot Help' },
+                        title: `Command: ${prefix}mute`,
+                        thumbnail: helpIcon,
+                        fields: [
+                            {
+                                name: 'Usage',
+                                value: `**${prefix}mute | <user> | <minutes> | [reason]**`
+                            },
+                            {
+                                name: `${prefix}mute | <user> | <minutes>`,
+                                value:
+                                            'Mute the the user (requires kick members permission)'
+                            },
+                            {
+                                name: `${prefix}mute | <user> | <minutes> | <reason>`,
+                                value:
+                                            'Mute the user and specify a reason (requires kick members permission)'
+                            }
+                        ],
+                        color: 0x7ae576
+                    }
+                });
+                break;
 
             default:
                 bot.sendMessage({
@@ -940,7 +998,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                         author: { name: 'Bot Help' },
                         title: 'Command List',
                         thumbnail: helpIcon,
-                        description: `Bot: \`${prefix}help\`, \`${prefix}source\`\nPokémon: \`${prefix}pokedex\`, \`${prefix}movedex\`, \`${prefix}randmon\`\nMisc: \`${prefix}hello\`, \`${prefix}god\``,
+                        description: `Bot: \`${prefix}help\`, \`${prefix}source\`\nPokémon: \`${prefix}pokedex\`, \`${prefix}movedex\`, \`${prefix}randmon\`\nModeration: \`${prefix}warn\`, \`${prefix}mute\`\nMisc: \`${prefix}hello\`, \`${prefix}god\``,
                         footer: {
                             text: `use ${prefix}help | <command> for command-specific help`
                         },
