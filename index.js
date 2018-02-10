@@ -597,7 +597,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
         case 'source':
             bot.sendMessage({
                 to: channelID,
-                message: 'https://bitbucket.org/megapokebot/megapokebot'
+                message: 'https://github.com/MegaPokeBot/MegaPokeBot'
             });
             break;
 
