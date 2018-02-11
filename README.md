@@ -1,4 +1,4 @@
 # MegaPokeBot
-[![Codeship](https://img.shields.io/codeship/453a34b0-dae8-0135-8b29-029911bb1fd3.svg)](https://app.codeship.com/projects/264547)
+[![Codeship](https://img.shields.io/codeship/5e43c6e0-f0d9-0135-7bec-2abc8ec65921.svg)](https://app.codeship.com/projects/271279)
 
 MegaPokeBot is a ~~Pokemon~~ All-in-one moderation and Pokemon Bot for Discord.
