@@ -1,11 +1,11 @@
 const Discord = require('discord.io');
 const logger = require('winston');
 const config = require('./.config.json');
-const { listOfMons } = require('./listofmons.json');
+const { listOfMons } = require('./self-data/listofmons.json');
 const dex = require('./dex-data/data/pokedex').BattlePokedex;
 const aliases = require('./dex-data/data/aliases').BattleAliases;
 const moves = require('./dex-data/data/moves').BattleMovedex;
-const moveFlags = require('./moveFlags.json');
+const moveFlags = require('./self-data/moveFlags.json');
 const items = require('./dex-data/data/items').BattleItems;
 const monaliases = require('./self-data/aliases').PokeAliases;
 const movealiases = require('./self-data/aliases').MoveAliases;
@@ -584,7 +584,7 @@ bot.on('message', function(user, userID, channelID, message, evt) {
                 }
             });
             break;
-            break;
+
             // %god
         case 'god':
             bot.sendMessage({
