@@ -13,6 +13,8 @@ const abilityaliases = require('./self-data/aliases').AbilityAliases;
 const formataliases = require('./self-data/aliases').FormatAliases;
 const itemaliases = require('./self-data/aliases').ItemAliases;
 const texts = require('./texts.json');
+const abilRatings = require('./self-data/ratings.json');
+const abilities = require('./dex-data/data/abilities').BattleAbilities;
 
 const prefix = config.prefix || '%';
 
@@ -590,6 +592,88 @@ bot.on('message', function(user, userID, channelID, message, evt) {
             bot.sendMessage({
                 to: channelID,
                 message: '<a:godnitro:404791673617514496>'
+            });
+            break;
+
+        case 'abilitydex':
+        case 'ad':
+            if (!args[0]) {
+                break;
+            }
+            var stuffToRemove = [],
+                numChanged = 0;
+            for (var i = 0; i < args[0].length; i++) {
+                if (
+                    args[0][i] === '-' ||
+                        args[0][i] === ' ' ||
+                        args[0][i] === '.' ||
+                        args[0][i] === ':' ||
+                        args[0][i] === '\'' ||
+                        args[0][i] === '%' ||
+                        args[0][i] === ','
+                ) {
+                    stuffToRemove.push(i);
+                }
+            }
+            for (var j = 0; j < stuffToRemove.length; j++) {
+                args[0] = spliceSlice(
+                    args[0],
+                    stuffToRemove[j] - numChanged,
+                    1
+                );
+                numChanged++;
+            }
+            if (Object.keys(abilityaliases).includes(args[0])) {
+                let currentOne = aliases[args[0]],
+                    stuffToRemove = [],
+                    numChanged = 0;
+                for (var i = 0; i < currentOne.length; i++) {
+                    if (
+                        currentOne[i] === '-' ||
+                            currentOne[i] === ' ' ||
+                            currentOne[i] === '.' ||
+                            currentOne[i] === ':' ||
+                            currentOne[i] === '%' ||
+                            currentOne[i] === '\'' ||
+                            currentOne[i] === ','
+                    ) {
+                        stuffToRemove.push(i);
+                    }
+                }
+                for (var j = 0; j < stuffToRemove.length; j++) {
+                    currentOne = spliceSlice(
+                        currentOne,
+                        stuffToRemove[j] - numChanged,
+                        1
+                    );
+                    numChanged++;
+                }
+                args[0] = currentOne.toLowerCase();
+            }
+            if (!Object.keys(abilities).includes(args[0])) {
+                bot.sendMessage({
+                    to: channelID,
+                    message: `I could not find ${args[0]} in my abilitydex.`
+                });
+                break;
+            }
+            var abilObj = abilities[args[0]];
+            bot.sendMessage({
+                to: channelID,
+                message: null,
+                embed: {
+                    author: { name: 'AbilityDex' },
+                    color: 0x9013fe,
+                    title: `${abilObj.name}`,
+                    description: `${abilObj.desc || abilObj.shortDesc}`,
+                    fields: [
+                        {
+                            name: 'Rating',
+                            value: `${abilRatings[abilObj.rating]}`,
+                            inline: true
+                        }
+                    ]
+                }
             });
             break;
 

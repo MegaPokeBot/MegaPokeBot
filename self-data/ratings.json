@@ -1,0 +1,10 @@
+{
+	"-2": "Extremely detrimental",
+	"-1": "Detrimental",
+	"0": "Useless",
+	"1": "Ineffective",
+    "2": "Situationally useful",
+    "3": "Useful",
+    "4": "Very useful",
+    "5": "Essential"
+}
