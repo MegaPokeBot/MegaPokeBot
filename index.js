@@ -380,10 +380,7 @@ bot.on('message', (message) => {
           args[0] = currentOne.toLowerCase();
         }
         if (!Object.keys(items).includes(args[0])) {
-          bot.sendMessage({
-            to: channelID,
-            message: `I could not find ${args[0]} in my itemdex.`,
-          });
+          message.channel.send(`I could not find ${args[0]} in my itemdex.`);
           break;
         }
         var itemObj = items[args[0]];
@@ -409,10 +406,7 @@ bot.on('message', (message) => {
 
         // %god
       case 'god':
-        bot.sendMessage({
-          to: channelID,
-          message: '<a:godnitro:404791673617514496>',
-        });
+          message.channel.send('<a:godnitro:404791673617514496>')
         break;
 
       case 'abilitydex':
@@ -463,38 +457,24 @@ bot.on('message', (message) => {
           args[0] = currentOne.toLowerCase();
         }
         if (!Object.keys(abilities).includes(args[0])) {
-          bot.sendMessage({
-            to: channelID,
-            message: `I could not find ${args[0]} in my abilitydex.`,
-          });
+            message.channel.send(`I could not find ${args[0]} in my abilitydex.`);
           break;
         }
         var abilObj = abilities[args[0]];
-        bot.sendMessage({
-          to: channelID,
-          message: null,
-          embed: {
-            author: { name: 'AbilityDex' },
-            color: 0x9013fe,
-            title: `${abilObj.name}`,
-            description: `${abilObj.desc || abilObj.shortDesc}`,
-            fields: [
-              {
-                name: 'Rating',
-                value: `${abilRatings[abilObj.rating]}`,
-                inline: true,
-              },
-            ],
-          },
-        });
+        message.channel.send({RichEmbed: new Discord.RichEmbed()
+                             .setAuthor('AbilityDex')
+                             .setColor('#9013fe')
+                             .setTitle(abilObj.name)
+                             .setDescription(abilObj.desc || abilObj.shortDesc)
+                             .addField('Rating',abilRatings[abilObj.rating],true)
+                             })
+           
         break;
 
         // %source
       case 'source':
-        bot.sendMessage({
-          to: channelID,
-          message: 'https://github.com/MegaPokeBot/MegaPokeBot',
-        });
+        message.channel.send( 'https://github.com/MegaPokeBot/MegaPokeBot');
+       
         break;
 
         // %warn
