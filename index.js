@@ -139,7 +139,7 @@ bot.on('message', (message) => {
         }
         var dexObj = dex[args[0]];
         message.channel.send({
-          RichEmbed: new Discord.RichEmbed()
+          embed: new Discord.RichEmbed()
             .setAuthor('Pokédex')
             .setTitle(
               `${dexObj.species} #${dexObj.num}`,
@@ -264,16 +264,13 @@ bot.on('message', (message) => {
           args[0] = currentOne.toLowerCase();
         }
         if (!Object.keys(moves).includes(args[0])) {
-          bot.sendMessage({
-            to: channelID,
-            message: `I could not find ${args[0]} in my movedex.`,
-          });
+          message.channel.send( `I could not find ${args[0]} in my movedex.`);
           break;
         }
         var moveObj = moves[args[0]];
             
         message.channel.send({
-          RichEmbed: new Discord.RichEmbed()
+          embed: new Discord.RichEmbed()
             .setAuthor('Movedex')
             .setColor('#e3b100')
             .setTitle(moveObj.name)
@@ -384,7 +381,7 @@ bot.on('message', (message) => {
           break;
         }
         var itemObj = items[args[0]];
-        message.channel.send({RichEmbed : new Discord.RichEmbed()
+        message.channel.send({embed : new Discord.RichEmbed()
         .setAuthor('ItemDex')
         .setColor('#9013fe')
         .setTitle(itemObj.name)
@@ -461,7 +458,7 @@ bot.on('message', (message) => {
           break;
         }
         var abilObj = abilities[args[0]];
-        message.channel.send({RichEmbed: new Discord.RichEmbed()
+        message.channel.send({embed: new Discord.RichEmbed()
                              .setAuthor('AbilityDex')
                              .setColor('#9013fe')
                              .setTitle(abilObj.name)
