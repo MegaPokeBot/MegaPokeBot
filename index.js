@@ -138,7 +138,7 @@ bot.on('message', (message) => {
           break;
         }
         var dexObj = dex[args[0]];
-        message.channel.send(null, {
+        message.channel.send({
           RichEmbed: new Discord.RichEmbed()
             .setAuthor('Pokédex')
             .setTitle(
@@ -271,45 +271,19 @@ bot.on('message', (message) => {
           break;
         }
         var moveObj = moves[args[0]];
-        bot.sendMessage({
-          to: channelID,
-          message: null,
-          embed: {
-            author: { name: 'MoveDex' },
-            color: 0xe3b100,
-            title: `${moveObj.name}`,
-            description: `${moveObj.desc || moveObj.shortDesc}`,
-            fields: [
-              {
-                name: 'Type',
-                value: `${moveObj.type}`,
-                inline: true,
-              },
-              {
-                name: 'Category',
-                value: `${moveObj.basePower !== 1 ? moveObj.category : 'N/A'}`,
-                inline: true,
-              },
-              {
-                name: 'Power',
-                value: `${moveObj.basePower === 1 ? 'N/A' : moveObj.basePower}`,
-                inline: true,
-              },
-              {
-                name: 'PP',
-                value: `${moveObj.pp}`,
-                inline: true,
-              },
-              {
-                name: 'Priority',
-                value: `${moveObj.priority}`,
-                inline: true,
-              },
-              {
-                name: 'Z-Move',
-                value: moveObj.isZ
-                  ? `${items[moveObj.isZ].name}`
-                  : ((zEffect) => {
+            
+        message.channel.send({
+          RichEmbed = new Discord.RichEmbed()
+            .setAuthor('Movedex')
+            .setColor('#e3b100')
+            .setTitle(moveObj.name)
+            .setDescription(moveObj.desc || moveObj.shortDesc)
+            .addField('Type',moveObj.type,true)
+            .addField('Category', moveObj.basePower !== 1 ? moveObj.category : 'N/A', true)
+            .addField('Base Power', moveObj.basePower === 1 ? 'N/A' : moveObj.basePower , true)
+            .addField('PP',moveObj.pp,true)
+            .addField('Priority',moveObj.priority,true)
+            .addField('Z-Move',moveObj.isZ ? `${items[moveObj.isZ].name}` : ((zEffect) => {
                     if (!zEffect) return;
                     if (zEffect === 'heal') {
                       return "Restores 100% of user's max health";
@@ -344,12 +318,8 @@ bot.on('message', (message) => {
                                         }
                                         return boosts.join(', ');
                                       })(moveObj.zMoveBoost) ||
-                                      `Power: ${moveObj.zMovePower || 'N/A'}`,
-                inline: true,
-              },
-              {
-                name: 'Flags',
-                value: Object.keys(moveObj.flags).length
+                                      `Power: ${moveObj.zMovePower || 'N/A'}`, true)
+              .addField('Flags',Object.keys(moveObj.flags).length
                   ? ((flags) => {
                     const flagList = [];
                     flags.forEach((flag) => {
@@ -357,11 +327,8 @@ bot.on('message', (message) => {
                     });
                     return flagList.join('\n');
                   })(Object.keys(moveObj.flags))
-                  : 'N/A',
-              },
-            ],
-          },
-        });
+                  : 'N/A')})
+             
         break;
 
         // %itemdex (or %id)
@@ -420,41 +387,24 @@ bot.on('message', (message) => {
           break;
         }
         var itemObj = items[args[0]];
-        bot.sendMessage({
-          to: channelID,
-          message: null,
-          embed: {
-            author: { name: 'ItemDex' },
-            color: 0x9013fe,
-            title: `${itemObj.name}`,
-            description: `${itemObj.desc}`,
-            fields: [
-              {
-                name: 'Introduced In',
-                value: `Generaton ${itemObj.gen}`,
-                inline: true,
-              },
-              {
-                name: 'Fling',
-                value: `${
+        message.channel.send({RichEmbed = new Discord.RichEmbed()
+        .setAuthor('ItemDex')
+        .setColor('#9013fe')
+        .setTitle(itemObj.name)
+        .setDescription(itemObj.desc)
+        .addField('Introduced In',`Generation ${itemObj.gen}`,true)
+        .addField('Fling',`${
                   itemObj.fling ? `${itemObj.fling.basePower} Power` : 'N/A'
-                }`,
-                inline: true,
-              },
-              {
-                name: 'Natural Gift',
-                value: `${
+                }`,true)
+        .addField('Natural Gift',`${
                   itemObj.naturalGift
                     ? `${itemObj.naturalGift.type} / ${
                       itemObj.naturalGift.basePower
                     } Power`
                     : 'N/A'
-                }`,
-                inline: true,
-              },
-            ],
-          },
+                }`, true)
         });
+        
         break;
 
         // %god
