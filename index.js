@@ -273,7 +273,7 @@ bot.on('message', (message) => {
         var moveObj = moves[args[0]];
             
         message.channel.send({
-          RichEmbed = new Discord.RichEmbed()
+          RichEmbed: new Discord.RichEmbed()
             .setAuthor('Movedex')
             .setColor('#e3b100')
             .setTitle(moveObj.name)
@@ -384,7 +384,7 @@ bot.on('message', (message) => {
           break;
         }
         var itemObj = items[args[0]];
-        message.channel.send({RichEmbed = new Discord.RichEmbed()
+        message.channel.send({RichEmbed : new Discord.RichEmbed()
         .setAuthor('ItemDex')
         .setColor('#9013fe')
         .setTitle(itemObj.name)
