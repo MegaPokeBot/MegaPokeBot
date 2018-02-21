@@ -139,7 +139,7 @@ bot.on('message', (message) => {
         }
         var dexObj = dex[args[0]];
         message.channel.send(null, {
-          RichEmbed: new RichEmbed()
+          RichEmbed: new Discord.RichEmbed()
             .setAuthor('Pokédex')
             .setTitle(
               `${dexObj.species} #${dexObj.num}`,
