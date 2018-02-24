@@ -205,6 +205,7 @@ bot.on('message', message => {
       case 'pokedex':
       case 'pd':
         if (!args[0]) {
+          message.reply('Proper Usage:', { embed: help.pokedex })
           break
         }
         if (Number(args[0]) > 0 && Number(args[0]) < 808) {
@@ -353,6 +354,7 @@ bot.on('message', message => {
       case 'movedex':
       case 'md':
         if (!args[0]) {
+          message.reply('Proper Usage:', { embed: help.movedex })
           break
         }
         stuffToRemove = []
@@ -493,6 +495,7 @@ bot.on('message', message => {
       case 'itemdex':
       case 'id':
         if (!args[0]) {
+          message.reply('Proper Usage:', { embed: help.itemdex })
           break
         }
         stuffToRemove = []
@@ -581,6 +584,7 @@ bot.on('message', message => {
       case 'abilitydex':
       case 'ad':
         if (!args[0]) {
+          message.reply('Proper Usage:', { embed: help.abilitydex })
           break
         }
         stuffToRemove = []
@@ -653,7 +657,10 @@ bot.on('message', message => {
 
       // %warn
       case 'warn':
-        if (!args[0]) break
+        if (!args[0]) {
+          message.reply('Proper Usage:', { embed: help.warn })
+          break
+        }
 
         // Check if in a server
         if (message.channel.type !== 'text') {
@@ -699,7 +706,10 @@ bot.on('message', message => {
         )
         break
       case 'mute':
-        if (!(args[0] && args[1])) break
+        if (!(args[0] && args[1])) {
+          message.reply('Proper Usage:', {embed: help.mute})
+          break
+        }
 
         // Check if in a server
         if (message.channel.type !== 'text') {
