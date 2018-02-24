@@ -706,7 +706,7 @@ bot.on('message', message => {
         }
         // Check for mod status (kick members)
         if (
-          !message.channel.guild.members.get(messsage.author.id).permissions.bitfield & 2
+          !message.channel.guild.members.get(message.author.id).permissions.bitfield & 2
         ) {
           bot.users
             .get(victimID)
