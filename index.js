@@ -560,7 +560,7 @@ bot.on('message', message => {
         }
         // Check for mod status (kick members)
         if (
-          !message.channel.guild.members.get(victimID).permissions.bitfield & 2
+          !message.channel.guild.members.get(message.author.id).permissions.bitfield & 2
         ) {
           message.channel.send(
             texts.noMod[Math.floor(Math.random() * texts.noMod.length)].replace(
@@ -609,7 +609,7 @@ bot.on('message', message => {
         }
         // Check for mod status (kick members)
         if (
-          !message.channel.guild.members.get(victimID).permissions.bitfield & 2
+          !message.channel.guild.members.get(messsage.author.id).permissions.bitfield & 2
         ) {
           bot.users
             .get(victimID)
