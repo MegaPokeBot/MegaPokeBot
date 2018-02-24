@@ -314,6 +314,10 @@ bot.on('message', message => {
               dexObj.prevo ? dex[dexObj.prevo].species : 'N/A',
               true
             )
+            .addField(
+              'Evolves at',
+              `${dexObj.evoLevel && dexObj.evoLevel !== 1 ? `Lv. ${dexObj.evoLevel}` : 'N/A'}`
+            )
             .addField('Egg Group', dexObj.eggGroups.join(', '), true)
             .addField(
               'Abilities',
