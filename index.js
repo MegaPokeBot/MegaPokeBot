@@ -10,7 +10,6 @@ const items = require('./dex-data/data/items').BattleItems
 const monaliases = require('./self-data/aliases').PokeAliases
 const movealiases = require('./self-data/aliases').MoveAliases
 const abilityaliases = require('./self-data/aliases').AbilityAliases
-const formataliases = require('./self-data/aliases').FormatAliases
 const itemaliases = require('./self-data/aliases').ItemAliases
 const texts = require('./texts.json')
 const abilRatings = require('./self-data/ratings.json')
@@ -29,6 +28,104 @@ const help = {
     .addField(
       `${prefix}help | <command>`,
       'Displays help for a certain command'
+    )
+    .setColor('#7ae576'),
+  source: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}source`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}source**`)
+    .addField(
+      `${prefix}source`,
+      'See the source code of :mega: :point_right: :robot:'
+    )
+    .setColor('#7ae576'),
+  ping: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}ping`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}ping**`)
+    .addField(`${prefix}ping`, 'Pings the bot')
+    .setColor('#7ae576'),
+  god: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}god`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}god**`)
+    .addField(`${prefix}god`, 'Sends the god of all Pokémon')
+    .setColor('#7ae576'),
+  randmon: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}randmon`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}randmon**`)
+    .addField(`${prefix}randmon`, 'Generate a random Pokémon (no formes)')
+    .setColor('#7ae576'),
+  pokedex: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}pokedex`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}pokedex | <pokémon OR dexno>**`, true)
+    .addField('Aliases', `**${prefix}pd**`, true)
+    .addField(
+      `${prefix}pokedex | <pokémon>`,
+      'Searches the pokédex for that pokémon'
+    )
+    .addField(
+      `${prefix}pokedex | <dexno>`,
+      'Searches the pokédex for that dex number'
+    )
+    .setColor('#7ae576'),
+  movedex: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}movedex`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}movedex | <move>**`, true)
+    .addField('Aliases', `**${prefix}md**`, true)
+    .addField(`${prefix}movedex | <move>`, 'Searches the movedex for that move')
+    .setColor('#7ae576'),
+  itemdex: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}itemdex`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}itemdex | <item>**`, true)
+    .addField('Aliases', `**${prefix}id**`, true)
+    .addField(`${prefix}itemdex | <item>`, 'Searches the itemdex for that item')
+    .setColor('#7ae576'),
+  abilitydex: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}abilitydex`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}abilitydex | <ability>**`, true)
+    .addField('Aliases', `**${prefix}ad**`, true)
+    .addField(`${prefix}abilitydex | <ability>`, 'Searches the abilitydex for that ability')
+    .setColor('#7ae576'),
+  warn: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}warn`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}warn | <user> | [reason]**`)
+    .addField(
+      `${prefix}warn | <user>`,
+      'Warn the user (requires kick members permission)'
+    )
+    .addField(
+      `${prefix}warn | <user> | <reason>`,
+      'Warn the user and specify a reason (requires kick members permission)'
+    )
+    .setColor('#7ae576'),
+  mute: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}mute`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}mute | <user> | <minutes> | [reason]**`)
+    .addField(
+      `${prefix}warn | <user> | <minutes>`,
+      'Mute the user (requires kick members permission)'
+    )
+    .addField(
+      `${prefix}warn | <user> | <minutes> | <reason>`,
+      'Mute the user and specify a reason (requires kick members permission)'
     )
     .setColor('#7ae576')
 }
@@ -59,7 +156,7 @@ bot.on('ready', () => {
   bot.user.setActivity(`${prefix}help`)
 })
 bot.on('reconnecting', () => {
-  logger.warn('Bot disconnected')
+  logger.info('Reconnecting...')
 })
 bot.on('message', message => {
   // Set up variables
@@ -87,8 +184,8 @@ bot.on('message', message => {
 
     switch (cmd) {
       // %hello
-      case 'hello':
-        message.reply('Hi there!')
+      case 'ping':
+        message.reply(`Pong! (${Math.round(bot.ping)}ms)`)
         break
 
       // %randmon
@@ -534,7 +631,7 @@ bot.on('message', message => {
 
       // %source
       case 'source':
-        message.channel.send('https://github.com/MegaPokeBot/MegaPokeBot')
+        message.reply('https://github.com/MegaPokeBot/MegaPokeBot')
 
         break
 
@@ -639,7 +736,10 @@ bot.on('message', message => {
         setTimeout(() => {
           message.channel.members
             .get(victimID)
-            .removeRole(config.muteRoles[message.channel.guild.id], 'Mute expired')
+            .removeRole(
+              config.muteRoles[message.channel.guild.id],
+              'Mute expired'
+            )
         }, Number(args[1]) * 1000 * 60)
         break
       // %help
@@ -653,240 +753,62 @@ bot.on('message', message => {
 
           case 'source':
           case `${prefix}source`:
-            bot.sendMessage({
-              to: channelID,
-              message: null,
-              embed: {
-                author: { name: 'Bot Help' },
-                title: `Command: ${prefix}source`,
-                thumbnail: helpIcon,
-                fields: [
-                  {
-                    name: 'Usage',
-                    value: `**${prefix}source**`
-                  },
-                  {
-                    name: `${prefix}source`,
-                    value: 'See the source code of :mega: :point_right: :robot:'
-                  }
-                ],
-                color: 0x7ae576
-              }
-            })
+            message.channel.send(help.source)
             break
           case 'pd':
           case `${prefix}pd`:
           case 'pokedex':
           case `${prefix}pokedex`:
-            bot.sendMessage({
-              to: channelID,
-              message: null,
-              embed: {
-                author: { name: 'Bot Help' },
-                title: `Command: ${prefix}pokedex`,
-                thumbnail: helpIcon,
-                fields: [
-                  {
-                    name: 'Usage',
-                    value: `**${prefix}pokedex | <pokémon OR dexno>**`,
-                    inline: true
-                  },
-                  {
-                    name: 'Shorthand',
-                    value: `**${prefix}pd**`,
-                    inline: true
-                  },
-                  {
-                    name: `${prefix}pokedex | <pokémon>`,
-                    value: 'Searches the pokédex for that pokémon'
-                  },
-                  {
-                    name: `${prefix}pokedex | <dexno>`,
-                    value: 'Searches the pokédex for that dex number'
-                  }
-                ],
-                color: 0x7ae576
-              }
-            })
+            message.channel.send(help.pokedex)
             break
 
           case 'md':
           case `${prefix}md`:
           case 'movedex':
           case `${prefix}movedex`:
-            bot.sendMessage({
-              to: channelID,
-              message: null,
-              embed: {
-                author: { name: 'Bot Help' },
-                title: `Command: ${prefix}movedex`,
-                thumbnail: helpIcon,
-                fields: [
-                  {
-                    name: 'Usage',
-                    value: `**${prefix}movedex | <move>**`,
-                    inline: true
-                  },
-                  {
-                    name: 'Shorthand',
-                    value: `**${prefix}md**`,
-                    inline: true
-                  },
-                  {
-                    name: `${prefix}movedex | <move>`,
-                    value: 'Searches the movedex'
-                  }
-                ],
-                color: 0x7ae576
-              }
-            })
+            message.channel.send(help.movedex)
             break
 
-          case 'hello':
-          case `${prefix}hello`:
-            bot.sendMessage({
-              to: channelID,
-              message: null,
-              embed: {
-                author: { name: 'Bot Help' },
-                title: `Command: ${prefix}hello`,
-                thumbnail: helpIcon,
-                fields: [
-                  {
-                    name: 'Usage',
-                    value: `**${prefix}hello**`
-                  },
-                  {
-                    name: `${prefix}hello`,
-                    value: 'Say hello to the bot!'
-                  }
-                ],
-                color: 0x7ae576
-              }
-            })
+          case 'ping':
+          case `${prefix}ping`:
+            message.channel.send(help.ping)
 
             break
 
           case 'randmon':
           case `${prefix}randmon`:
-            bot.sendMessage({
-              to: channelID,
-              message: null,
-              embed: {
-                author: { name: 'Bot Help' },
-                title: `Command: ${prefix}randmon`,
-                thumbnail: helpIcon,
-                fields: [
-                  {
-                    name: 'Usage',
-                    value: `**${prefix}randmon**`
-                  },
-                  {
-                    name: `${prefix}randmon`,
-                    value: 'Generate a random Pokémon (no formes)'
-                  }
-                ],
-                color: 0x7ae576
-              }
-            })
+            message.channel.send(help.randmon)
 
             break
           case 'god':
           case `${prefix}god`:
-            bot.sendMessage({
-              to: channelID,
-              message: null,
-              embed: {
-                author: { name: 'Bot Help' },
-                title: `Command: ${prefix}god`,
-                thumbnail: helpIcon,
-                fields: [
-                  {
-                    name: 'Usage',
-                    value: `**${prefix}god**`
-                  },
-                  {
-                    name: `${prefix}god`,
-                    value: 'Send the god of all Pokémon'
-                  }
-                ],
-                color: 0x7ae576
-              }
-            })
+            message.channel.send(help.god)
             break
           case 'warn':
           case `${prefix}warn`:
-            bot.sendMessage({
-              to: channelID,
-              message: null,
-              embed: {
-                author: { name: 'Bot Help' },
-                title: `Command: ${prefix}warn`,
-                thumbnail: helpIcon,
-                fields: [
-                  {
-                    name: 'Usage',
-                    value: `**${prefix}warn | <user> | [reason]**`
-                  },
-                  {
-                    name: `${prefix}warn | <user>`,
-                    value: 'Warn the user (requires kick members permission)'
-                  },
-                  {
-                    name: `${prefix}warn | <user> | <reason>`,
-                    value:
-                      'Warn the user and specify a reason (requires kick members permission)'
-                  }
-                ],
-                color: 0x7ae576
-              }
-            })
+            message.channel.send(help.warn)
             break
           case 'mute':
           case `${prefix}mute`:
-            bot.sendMessage({
-              to: channelID,
-              message: null,
-              embed: {
-                author: { name: 'Bot Help' },
-                title: `Command: ${prefix}mute`,
-                thumbnail: helpIcon,
-                fields: [
-                  {
-                    name: 'Usage',
-                    value: `**${prefix}mute | <user> | <minutes> | [reason]**`
-                  },
-                  {
-                    name: `${prefix}mute | <user> | <minutes>`,
-                    value:
-                      'Mute the the user (requires kick members permission)'
-                  },
-                  {
-                    name: `${prefix}mute | <user> | <minutes> | <reason>`,
-                    value:
-                      'Mute the user and specify a reason (requires kick members permission)'
-                  }
-                ],
-                color: 0x7ae576
-              }
-            })
+            message.channel.send(help.mute)
             break
 
           default:
-            bot.sendMessage({
-              to: channelID,
-              message: null,
-              embed: {
-                author: { name: 'Bot Help' },
-                title: 'Command List',
-                thumbnail: helpIcon,
-                description: `Bot: \`${prefix}help\`, \`${prefix}source\`\nPokémon: \`${prefix}pokedex\`, \`${prefix}movedex\`, \`${prefix}randmon\`\nModeration: \`${prefix}warn\`, \`${prefix}mute\`\nMisc: \`${prefix}hello\`, \`${prefix}god\``,
-                footer: {
-                  text: `use ${prefix}help | <command> for command-specific help`
-                },
-                color: 0x7ae576
-              }
-            })
+            if (args[0]) {
+              message.reply(`There is no command called \`${args[0]}\``)
+            }
+            message.channel.send(
+              new Discord.RichEmbed()
+                .setAuthor('Bot Help')
+                .setThumbnail(helpIcon)
+                .setDescription(
+                  `Bot: \`${prefix}help\`, \`${prefix}ping\`,  \`${prefix}source\`\nPokémon: \`${prefix}pokedex\`, \`${prefix}movedex\`, \`${prefix}itemdex\`, \`${prefix}abilitydex\` \`${prefix}randmon\`\nModeration: \`${prefix}warn\`, \`${prefix}mute\`\nMisc: \`${prefix}god\``
+                )
+                .setFooter(
+                  `use ${prefix}help | <command> for command-specific help`
+                )
+                .setColor('#7ae576')
+            )
         }
 
         break
