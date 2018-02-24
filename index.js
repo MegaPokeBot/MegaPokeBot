@@ -123,12 +123,27 @@ const help = {
     .setThumbnail(helpIcon)
     .addField('Usage', `**${prefix}mute | <user> | <minutes> | [reason]**`)
     .addField(
-      `${prefix}warn | <user> | <minutes>`,
+      `${prefix}mute | <user> | <minutes>`,
       'Mute the user (requires kick members permission)'
     )
     .addField(
-      `${prefix}warn | <user> | <minutes> | <reason>`,
+      `${prefix}mute | <user> | <minutes> | <reason>`,
       'Mute the user and specify a reason (requires kick members permission)'
+    )
+    .setColor('#7ae576'),
+  kick: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}kick`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}kick | <user> | [reason]**`, true)
+    .addField('Aliases', `**${prefix}softban**`)
+    .addField(
+      `${prefix}kick | <user>`,
+      'Kick the user and delete messages from the last 24h (requires kick members permission)'
+    )
+    .addField(
+      `${prefix}kick | <user> | <reason>`,
+      'Kick the user, delete messages, and specify a reason (requires kick members permission)'
     )
     .setColor('#7ae576')
 }
@@ -680,8 +695,9 @@ bot.on('message', message => {
         }
         // Check for mod status (kick members)
         if (
-          !message.channel.guild.members.get(message.author.id).permissions
-            .bitfield & 2
+          !message.channel.guild.members
+            .get(message.author.id)
+            .hasPermission('KICK_MEMBERS')
         ) {
           message.channel.send(
             texts.noMod[Math.floor(Math.random() * texts.noMod.length)].replace(
@@ -704,10 +720,11 @@ bot.on('message', message => {
             bot.users.get(victimID).tag
           )
         )
+        message.delete()
         break
       case 'mute':
         if (!(args[0] && args[1])) {
-          message.reply('Proper Usage:', {embed: help.mute})
+          message.reply('Proper Usage:', { embed: help.mute })
           break
         }
 
@@ -733,8 +750,9 @@ bot.on('message', message => {
         }
         // Check for mod status (kick members)
         if (
-          !message.channel.guild.members.get(message.author.id).permissions
-            .bitfield & 2
+          !message.channel.guild.members
+            .get(message.author.id)
+            .hasPermission('KICK_MEMBERS')
         ) {
           bot.users
             .get(victimID)
@@ -769,6 +787,72 @@ bot.on('message', message => {
               'Mute expired'
             )
         }, Number(args[1]) * 1000 * 60)
+        message.delete()
+        break
+
+      // %kick (or %softban)
+      case 'kick':
+      case 'softban':
+        if (!args[0]) {
+          message.reply('Proper Usage:', { embed: help.kick })
+          break
+        }
+
+        // Check if in a server
+        if (message.channel.type !== 'text') {
+          message.reply("I'm pretty sure I can't do that here.")
+          break
+        }
+        victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '')
+        // Don't do it to the bot
+        if (victimID === bot.id) {
+          message.reply('lolno')
+          break
+        }
+        // Check if user exists
+        if (!message.channel.guild.members.get(victimID)) {
+          message.reply(`Who's ${args[0]}?`)
+          break
+        }
+        // Check for mod status (kick members)
+        if (
+          !message.channel.guild.members
+            .get(message.author.id)
+            .hasPermission('KICK_MEMBERS')
+        ) {
+          message.channel.send(
+            texts.noMod[Math.floor(Math.random() * texts.noMod.length)].replace(
+              /%u/g,
+              message.author.tag
+            )
+          )
+          break
+        }
+        bot.users
+          .get(victimID)
+          .send(
+            `You have been kicked from ${message.channel.guild.name}${
+              args[1] ? ` with this message: ${args[1]}` : ''
+            }`
+          )
+          .then(() => {
+            message.channel.members
+              .get(victimID)
+              .ban({
+                days: 1,
+                reason: args[0]
+              })
+              .then(() => {
+                message.channel.guild.unban(victimID, 'Softban')
+              })
+          })
+        message.channel.send(
+          texts.kick[Math.floor(Math.random() * texts.kick.length)].replace(
+            /%u/g,
+            bot.users.get(victimID).tag
+          )
+        )
+        message.delete()
         break
       // %help
       case 'help':
