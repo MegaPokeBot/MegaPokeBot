@@ -98,7 +98,10 @@ const help = {
     .setThumbnail(helpIcon)
     .addField('Usage', `**${prefix}abilitydex | <ability>**`, true)
     .addField('Aliases', `**${prefix}ad**`, true)
-    .addField(`${prefix}abilitydex | <ability>`, 'Searches the abilitydex for that ability')
+    .addField(
+      `${prefix}abilitydex | <ability>`,
+      'Searches the abilitydex for that ability'
+    )
     .setColor('#7ae576'),
   warn: new Discord.RichEmbed()
     .setAuthor('Bot Help')
@@ -311,6 +314,14 @@ bot.on('message', message => {
               dexObj.prevo ? dex[dexObj.prevo].species : 'N/A',
               true
             )
+            .addField(
+              'Evolves at',
+              `${
+                dexObj.evoLevel && dexObj.evoLevel !== 1
+                  ? `Lv. ${dexObj.evoLevel}`
+                  : 'N/A'
+              }`
+            )
             .addField('Egg Group', dexObj.eggGroups.join(', '), true)
             .addField(
               'Abilities',
@@ -415,6 +426,11 @@ bot.on('message', message => {
             )
             .addField('PP', moveObj.pp, true)
             .addField('Priority', moveObj.priority, true)
+            .addField(
+              'Accuracy',
+              moveObj.accuracy === true ? 'N/A' : moveObj.accuracy,
+              true
+            )
             .addField(
               'Z-Move',
               moveObj.isZ
@@ -657,7 +673,8 @@ bot.on('message', message => {
         }
         // Check for mod status (kick members)
         if (
-          !message.channel.guild.members.get(message.author.id).permissions.bitfield & 2
+          !message.channel.guild.members.get(message.author.id).permissions
+            .bitfield & 2
         ) {
           message.channel.send(
             texts.noMod[Math.floor(Math.random() * texts.noMod.length)].replace(
@@ -706,7 +723,8 @@ bot.on('message', message => {
         }
         // Check for mod status (kick members)
         if (
-          !message.channel.guild.members.get(message.author.id).permissions.bitfield & 2
+          !message.channel.guild.members.get(message.author.id).permissions
+            .bitfield & 2
         ) {
           bot.users
             .get(victimID)
