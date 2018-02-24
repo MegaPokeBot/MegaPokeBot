@@ -145,6 +145,21 @@ const help = {
       `${prefix}kick | <user> | <reason>`,
       'Kick the user, delete messages, and specify a reason (requires kick members permission)'
     )
+    .setColor('#7ae576'),
+  ban: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}ban`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}ban | <user> | [reason]**`, true)
+    .addField('Aliases', `**${prefix}hardban**`)
+    .addField(
+      `${prefix}ban | <user>`,
+      'Ban the user (requires ban members permission)'
+    )
+    .addField(
+      `${prefix}ban | <user> | <reason>`,
+      'Ban the user and specify a reason (requires ban members permission)'
+    )
     .setColor('#7ae576')
 }
 
@@ -854,6 +869,67 @@ bot.on('message', message => {
         )
         message.delete()
         break
+      // %ban (or %hardban)
+      case 'ban':
+      case 'hardban':
+        if (!args[0]) {
+          message.reply('Proper Usage:', { embed: help.ban })
+          break
+        }
+
+        // Check if in a server
+        if (message.channel.type !== 'text') {
+          message.reply("I'm pretty sure I can't do that here.")
+          break
+        }
+        victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '')
+        // Don't do it to the bot
+        if (victimID === bot.id) {
+          message.reply('lolno')
+          break
+        }
+        // Check if user exists
+        if (!message.channel.guild.members.get(victimID)) {
+          message.reply(`Who's ${args[0]}?`)
+          break
+        }
+        // Check for mod status (ban members)
+        if (
+          !message.channel.guild.members
+            .get(message.author.id)
+            .hasPermission('BAN_MEMBERS')
+        ) {
+          message.channel.send(
+            texts.noMod[Math.floor(Math.random() * texts.noMod.length)].replace(
+              /%u/g,
+              message.author.tag
+            )
+          )
+          break
+        }
+        bot.users
+          .get(victimID)
+          .send(
+            `You have been banned from ${message.channel.guild.name}${
+              args[1] ? ` with this message: ${args[1]}` : ''
+            }`
+          )
+          .then(() => {
+            message.channel.members
+              .get(victimID)
+              .ban({
+                days: 7,
+                reason: args[0]
+              })
+          })
+        message.channel.send(
+          texts.ban[Math.floor(Math.random() * texts.ban.length)].replace(
+            /%u/g,
+            bot.users.get(victimID).tag
+          )
+        )
+        message.delete()
+        break
       // %help
       case 'help':
         switch (args[0]) {
@@ -904,7 +980,18 @@ bot.on('message', message => {
           case `${prefix}mute`:
             message.channel.send(help.mute)
             break
-
+          case 'kick':
+          case `${prefix}kick`:
+          case 'softban':
+          case `${prefix}softban`:
+            message.channel.send(help.kick)
+            break
+          case 'ban':
+          case `${prefix}ban`:
+          case 'hardban':
+          case `${prefix}hardban`:
+            message.channel.send(help.ban)
+            break
           default:
             if (args[0]) {
               message.reply(`There is no command called \`${args[0]}\``)
@@ -914,7 +1001,7 @@ bot.on('message', message => {
                 .setAuthor('Bot Help')
                 .setThumbnail(helpIcon)
                 .setDescription(
-                  `Bot: \`${prefix}help\`, \`${prefix}ping\`,  \`${prefix}source\`\nPokémon: \`${prefix}pokedex\`, \`${prefix}movedex\`, \`${prefix}itemdex\`, \`${prefix}abilitydex\` \`${prefix}randmon\`\nModeration: \`${prefix}warn\`, \`${prefix}mute\`\nMisc: \`${prefix}god\``
+                  `Bot: \`${prefix}help\`, \`${prefix}ping\`,  \`${prefix}source\`\nPokémon: \`${prefix}pokedex\`, \`${prefix}movedex\`, \`${prefix}itemdex\`, \`${prefix}abilitydex\` \`${prefix}randmon\`\nModeration: \`${prefix}warn\`, \`${prefix}mute\`, \`${prefix}kick\`, \`${prefix}ban\`\nMisc: \`${prefix}god\``
                 )
                 .setFooter(
                   `use ${prefix}help | <command> for command-specific help`
