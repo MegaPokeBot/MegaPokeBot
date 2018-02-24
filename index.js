@@ -855,7 +855,7 @@ bot.on('message', message => {
               .get(victimID)
               .ban({
                 days: 1,
-                reason: args[0]
+                reason: args[1]
               })
               .then(() => {
                 message.channel.guild.unban(victimID, 'Softban')
@@ -919,7 +919,7 @@ bot.on('message', message => {
               .get(victimID)
               .ban({
                 days: 7,
-                reason: args[0]
+                reason: args[1]
               })
           })
         message.channel.send(
