@@ -136,7 +136,7 @@ const help = {
     .setTitle(`Command: ${prefix}kick`)
     .setThumbnail(helpIcon)
     .addField('Usage', `**${prefix}kick | <user> | [reason]**`, true)
-    .addField('Aliases', `**${prefix}softban**`)
+    .addField('Aliases', `**${prefix}softban**`, true)
     .addField(
       `${prefix}kick | <user>`,
       'Kick the user and delete messages from the last 24h (requires kick members permission)'
@@ -151,7 +151,7 @@ const help = {
     .setTitle(`Command: ${prefix}ban`)
     .setThumbnail(helpIcon)
     .addField('Usage', `**${prefix}ban | <user> | [reason]**`, true)
-    .addField('Aliases', `**${prefix}hardban**`)
+    .addField('Aliases', `**${prefix}hardban**`, true)
     .addField(
       `${prefix}ban | <user>`,
       'Ban the user (requires ban members permission)'
