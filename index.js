@@ -82,10 +82,7 @@ const help = {
     .setThumbnail(helpIcon)
     .addField('Usage', `**${prefix}movedex | <move>**`, true)
     .addField('Aliases', `**${prefix}md**`, true)
-    .addField(
-      `${prefix}movedex | <move>`,
-      'Searches the movedex for that move'
-    )
+    .addField(`${prefix}movedex | <move>`, 'Searches the movedex for that move')
     .setColor('#7ae576'),
   itemdex: new Discord.RichEmbed()
     .setAuthor('Bot Help')
@@ -93,10 +90,7 @@ const help = {
     .setThumbnail(helpIcon)
     .addField('Usage', `**${prefix}itemdex | <item>**`, true)
     .addField('Aliases', `**${prefix}id**`, true)
-    .addField(
-      `${prefix}itemdex | <item>`,
-      'Searches the itemdex for that item'
-    )
+    .addField(`${prefix}itemdex | <item>`, 'Searches the itemdex for that item')
     .setColor('#7ae576'),
   abilitydex: new Discord.RichEmbed()
     .setAuthor('Bot Help')
@@ -192,7 +186,12 @@ bot.on('ready', () => {
   logger.info('Connected')
   logger.info('Logged in as: ')
   logger.info(`${bot.user.tag} - (${bot.user.id})`)
-  bot.user.setActivity(`${prefix}help`)
+  bot.user.setPresence({
+    game: {
+      name: `${prefix}help`,
+      type: 'WATCHING'
+    }
+  })
 })
 bot.on('reconnecting', () => {
   logger.info('Reconnecting...')
@@ -227,7 +226,7 @@ bot.on('message', message => {
         message.reply(`Pong! (${Math.round(bot.ping)}ms)`)
         break
 
-        // %randmon
+      // %randmon
       case 'randmon':
         var randmon = listOfMons[Math.floor(Math.random() * 807)]
         message.reply(
@@ -237,7 +236,7 @@ bot.on('message', message => {
         )
         break
 
-        // %pokedex (or %pd)
+      // %pokedex (or %pd)
       case 'pokedex':
       case 'pd':
         if (!args[0]) {
@@ -245,31 +244,25 @@ bot.on('message', message => {
           break
         }
         if (Number(args[0]) > 0 && Number(args[0]) < 808) {
-          args[0] = listOfMons[Number(args[0]) - 1]
-            .substring(5)
-            .toLowerCase()
+          args[0] = listOfMons[Number(args[0]) - 1].substring(5).toLowerCase()
         }
         stuffToRemove = []
         numChanged = 0
         for (let i = 0; i < args[0].length; i++) {
           if (
             args[0][i] === '-' ||
-                        args[0][i] === ' ' ||
-                        args[0][i] === '.' ||
-                        args[0][i] === ':' ||
-                        args[0][i] === "'" ||
-                        args[0][i] === '%' ||
-                        args[0][i] === ','
+            args[0][i] === ' ' ||
+            args[0][i] === '.' ||
+            args[0][i] === ':' ||
+            args[0][i] === "'" ||
+            args[0][i] === '%' ||
+            args[0][i] === ','
           ) {
             stuffToRemove.push(i)
           }
         }
         for (let j = 0; j < stuffToRemove.length; j++) {
-          args[0] = spliceSlice(
-            args[0],
-            stuffToRemove[j] - numChanged,
-            1
-          )
+          args[0] = spliceSlice(args[0], stuffToRemove[j] - numChanged, 1)
           numChanged++
         }
         if (Object.keys(monaliases).includes(args[0])) {
@@ -279,12 +272,12 @@ bot.on('message', message => {
           for (let i = 0; i < currentOne.length; i++) {
             if (
               currentOne[i] === '-' ||
-                            currentOne[i] === ' ' ||
-                            currentOne[i] === '.' ||
-                            currentOne[i] === ':' ||
-                            currentOne[i] === '%' ||
-                            currentOne[i] === "'" ||
-                            currentOne[i] === ','
+              currentOne[i] === ' ' ||
+              currentOne[i] === '.' ||
+              currentOne[i] === ':' ||
+              currentOne[i] === '%' ||
+              currentOne[i] === "'" ||
+              currentOne[i] === ','
             ) {
               stuffToRemove.push(i)
             }
@@ -316,27 +309,15 @@ bot.on('message', message => {
                   case 'jangmo-o':
                   case 'hakamo-o':
                   case 'kommo-o':
-                    return spliceSlice(
-                      fStr,
-                      fStr.indexOf('-'),
-                      1
-                    )
+                    return spliceSlice(fStr, fStr.indexOf('-'), 1)
                   case 'nidoran-m':
                     return 'nidoran'
                   default:
                     if (/.+-totem/.test(fStr)) {
-                      return spliceSlice(
-                        fStr,
-                        fStr.lastIndexOf('-'),
-                        6
-                      )
+                      return spliceSlice(fStr, fStr.lastIndexOf('-'), 6)
                     }
                     if (/.+-.+-.+/.test(fStr)) {
-                      return spliceSlice(
-                        fStr,
-                        fStr.lastIndexOf('-'),
-                        1
-                      )
+                      return spliceSlice(fStr, fStr.lastIndexOf('-'), 1)
                     }
                     return fStr
                 }
@@ -358,9 +339,7 @@ bot.on('message', message => {
                 const evosResolved = []
                 if (!dexObj.evos) return 'N/A'
                 for (let i = 0; i < dexObj.evos.length; i++) {
-                  evosResolved.push(
-                    dex[dexObj.evos[i]].species
-                  )
+                  evosResolved.push(dex[dexObj.evos[i]].species)
                 }
                 return evosResolved.join(' or ')
               })(),
@@ -379,43 +358,34 @@ bot.on('message', message => {
                   : 'N/A'
               }`
             )
-            .addField(
-              'Egg Group',
-              dexObj.eggGroups.join(', '),
-              true
-            )
+            .addField('Egg Group', dexObj.eggGroups.join(', '), true)
             .addField(
               'Abilities',
               dexObj.abilities['0'] +
-                                (dexObj.abilities['1']
-                                  ? `, ${dexObj.abilities['1']}`
-                                  : '') +
-                                (dexObj.abilities.H
-                                  ? `, Hidden: ${dexObj.abilities.H}`
-                                  : '') || 'None',
+                (dexObj.abilities['1'] ? `, ${dexObj.abilities['1']}` : '') +
+                (dexObj.abilities.H ? `, Hidden: ${dexObj.abilities.H}` : '') ||
+                'None',
               true
             )
             .addField(
               'Base Stats',
-              `${dexObj.baseStats.hp} HP, ${
-                dexObj.baseStats.atk
-              } Atk, ${dexObj.baseStats.def} Def, ${
-                dexObj.baseStats.spa
-              } SpA, ${dexObj.baseStats.spd} SpD, ${
-                dexObj.baseStats.spe
-              } Spe, ${dexObj.baseStats.hp +
-                                dexObj.baseStats.atk +
-                                dexObj.baseStats.def +
-                                dexObj.baseStats.spa +
-                                dexObj.baseStats.spd +
-                                dexObj.baseStats.spe} Total`,
+              `${dexObj.baseStats.hp} HP, ${dexObj.baseStats.atk} Atk, ${
+                dexObj.baseStats.def
+              } Def, ${dexObj.baseStats.spa} SpA, ${
+                dexObj.baseStats.spd
+              } SpD, ${dexObj.baseStats.spe} Spe, ${dexObj.baseStats.hp +
+                dexObj.baseStats.atk +
+                dexObj.baseStats.def +
+                dexObj.baseStats.spa +
+                dexObj.baseStats.spd +
+                dexObj.baseStats.spe} Total`,
               true
             )
             .setColor('#ff3333')
         )
         break
 
-        // %movedex (or %md)
+      // %movedex (or %md)
       case 'movedex':
       case 'md':
         if (!args[0]) {
@@ -427,22 +397,18 @@ bot.on('message', message => {
         for (let i = 0; i < args[0].length; i++) {
           if (
             args[0][i] === '-' ||
-                        args[0][i] === ' ' ||
-                        args[0][i] === '.' ||
-                        args[0][i] === ':' ||
-                        args[0][i] === "'" ||
-                        args[0][i] === '%' ||
-                        args[0][i] === ','
+            args[0][i] === ' ' ||
+            args[0][i] === '.' ||
+            args[0][i] === ':' ||
+            args[0][i] === "'" ||
+            args[0][i] === '%' ||
+            args[0][i] === ','
           ) {
             stuffToRemove.push(i)
           }
         }
         for (let j = 0; j < stuffToRemove.length; j++) {
-          args[0] = spliceSlice(
-            args[0],
-            stuffToRemove[j] - numChanged,
-            1
-          )
+          args[0] = spliceSlice(args[0], stuffToRemove[j] - numChanged, 1)
           numChanged++
         }
         if (Object.keys(movealiases).includes(args[0])) {
@@ -452,12 +418,12 @@ bot.on('message', message => {
           for (let i = 0; i < currentOne.length; i++) {
             if (
               currentOne[i] === '-' ||
-                            currentOne[i] === ' ' ||
-                            currentOne[i] === '.' ||
-                            currentOne[i] === ':' ||
-                            currentOne[i] === '%' ||
-                            currentOne[i] === "'" ||
-                            currentOne[i] === ','
+              currentOne[i] === ' ' ||
+              currentOne[i] === '.' ||
+              currentOne[i] === ':' ||
+              currentOne[i] === '%' ||
+              currentOne[i] === "'" ||
+              currentOne[i] === ','
             ) {
               stuffToRemove.push(i)
             }
@@ -473,9 +439,7 @@ bot.on('message', message => {
           args[0] = currentOne.toLowerCase()
         }
         if (!Object.keys(moves).includes(args[0])) {
-          message.channel.send(
-            `I could not find ${args[0]} in my movedex.`
-          )
+          message.channel.send(`I could not find ${args[0]} in my movedex.`)
           break
         }
         var moveObj = moves[args[0]]
@@ -501,9 +465,7 @@ bot.on('message', message => {
             .addField('Priority', moveObj.priority, true)
             .addField(
               'Accuracy',
-              moveObj.accuracy === true
-                ? 'N/A'
-                : moveObj.accuracy,
+              moveObj.accuracy === true ? 'N/A' : moveObj.accuracy,
               true
             )
             .addField(
@@ -519,37 +481,33 @@ bot.on('message', message => {
                     return 'Resets all negative stat boosts'
                   }
                 })(moveObj.zMoveEffect) ||
-                                  (zBoosts => {
-                                    if (!zBoosts) return
-                                    const boosts = []
-                                    if (zBoosts.atk) {
-                                      boosts.push(`+${zBoosts.atk} Atk`)
-                                    }
-                                    if (zBoosts.def) {
-                                      boosts.push(`+${zBoosts.def} Def`)
-                                    }
-                                    if (zBoosts.spa) {
-                                      boosts.push(`+${zBoosts.spa} SpA`)
-                                    }
-                                    if (zBoosts.spd) {
-                                      boosts.push(`+${zBoosts.spd} SpD`)
-                                    }
-                                    if (zBoosts.spe) {
-                                      boosts.push(`+${zBoosts.spe} Spe`)
-                                    }
-                                    if (zBoosts.accuracy) {
-                                      boosts.push(
-                                        `+${zBoosts.accuracy} Accuracy`
-                                      )
-                                    }
-                                    if (zBoosts.evasion) {
-                                      boosts.push(
-                                        `+${zBoosts.evasion} Evasion`
-                                      )
-                                    }
-                                    return boosts.join(', ')
-                                  })(moveObj.zMoveBoost) ||
-                                  `Power: ${moveObj.zMovePower || 'N/A'}`,
+                  (zBoosts => {
+                    if (!zBoosts) return
+                    const boosts = []
+                    if (zBoosts.atk) {
+                      boosts.push(`+${zBoosts.atk} Atk`)
+                    }
+                    if (zBoosts.def) {
+                      boosts.push(`+${zBoosts.def} Def`)
+                    }
+                    if (zBoosts.spa) {
+                      boosts.push(`+${zBoosts.spa} SpA`)
+                    }
+                    if (zBoosts.spd) {
+                      boosts.push(`+${zBoosts.spd} SpD`)
+                    }
+                    if (zBoosts.spe) {
+                      boosts.push(`+${zBoosts.spe} Spe`)
+                    }
+                    if (zBoosts.accuracy) {
+                      boosts.push(`+${zBoosts.accuracy} Accuracy`)
+                    }
+                    if (zBoosts.evasion) {
+                      boosts.push(`+${zBoosts.evasion} Evasion`)
+                    }
+                    return boosts.join(', ')
+                  })(moveObj.zMoveBoost) ||
+                  `Power: ${moveObj.zMovePower || 'N/A'}`,
               true
             )
             .addField(
@@ -568,7 +526,7 @@ bot.on('message', message => {
 
         break
 
-        // %itemdex (or %id)
+      // %itemdex (or %id)
       case 'itemdex':
       case 'id':
         if (!args[0]) {
@@ -580,22 +538,18 @@ bot.on('message', message => {
         for (let i = 0; i < args[0].length; i++) {
           if (
             args[0][i] === '-' ||
-                        args[0][i] === ' ' ||
-                        args[0][i] === '.' ||
-                        args[0][i] === ':' ||
-                        args[0][i] === "'" ||
-                        args[0][i] === '%' ||
-                        args[0][i] === ','
+            args[0][i] === ' ' ||
+            args[0][i] === '.' ||
+            args[0][i] === ':' ||
+            args[0][i] === "'" ||
+            args[0][i] === '%' ||
+            args[0][i] === ','
           ) {
             stuffToRemove.push(i)
           }
         }
         for (let j = 0; j < stuffToRemove.length; j++) {
-          args[0] = spliceSlice(
-            args[0],
-            stuffToRemove[j] - numChanged,
-            1
-          )
+          args[0] = spliceSlice(args[0], stuffToRemove[j] - numChanged, 1)
           numChanged++
         }
         if (Object.keys(itemaliases).includes(args[0])) {
@@ -605,12 +559,12 @@ bot.on('message', message => {
           for (let i = 0; i < currentOne.length; i++) {
             if (
               currentOne[i] === '-' ||
-                            currentOne[i] === ' ' ||
-                            currentOne[i] === '.' ||
-                            currentOne[i] === ':' ||
-                            currentOne[i] === '%' ||
-                            currentOne[i] === "'" ||
-                            currentOne[i] === ','
+              currentOne[i] === ' ' ||
+              currentOne[i] === '.' ||
+              currentOne[i] === ':' ||
+              currentOne[i] === '%' ||
+              currentOne[i] === "'" ||
+              currentOne[i] === ','
             ) {
               stuffToRemove.push(i)
             }
@@ -626,9 +580,7 @@ bot.on('message', message => {
           args[0] = currentOne.toLowerCase()
         }
         if (!Object.keys(items).includes(args[0])) {
-          message.channel.send(
-            `I could not find ${args[0]} in my itemdex.`
-          )
+          message.channel.send(`I could not find ${args[0]} in my itemdex.`)
           break
         }
         let itemObj = items[args[0]]
@@ -638,18 +590,10 @@ bot.on('message', message => {
             .setColor('#9013fe')
             .setTitle(itemObj.name)
             .setDescription(itemObj.desc)
-            .addField(
-              'Introduced In',
-              `Generation ${itemObj.gen}`,
-              true
-            )
+            .addField('Introduced In', `Generation ${itemObj.gen}`, true)
             .addField(
               'Fling',
-              `${
-                itemObj.fling
-                  ? `${itemObj.fling.basePower} Power`
-                  : 'N/A'
-              }`,
+              `${itemObj.fling ? `${itemObj.fling.basePower} Power` : 'N/A'}`,
               true
             )
             .addField(
@@ -667,7 +611,7 @@ bot.on('message', message => {
 
         break
 
-        // %god
+      // %god
       case 'god':
         message.channel.send('<a:godnitro:404791673617514496>')
         break
@@ -683,22 +627,18 @@ bot.on('message', message => {
         for (let i = 0; i < args[0].length; i++) {
           if (
             args[0][i] === '-' ||
-                        args[0][i] === ' ' ||
-                        args[0][i] === '.' ||
-                        args[0][i] === ':' ||
-                        args[0][i] === "'" ||
-                        args[0][i] === '%' ||
-                        args[0][i] === ','
+            args[0][i] === ' ' ||
+            args[0][i] === '.' ||
+            args[0][i] === ':' ||
+            args[0][i] === "'" ||
+            args[0][i] === '%' ||
+            args[0][i] === ','
           ) {
             stuffToRemove.push(i)
           }
         }
         for (let j = 0; j < stuffToRemove.length; j++) {
-          args[0] = spliceSlice(
-            args[0],
-            stuffToRemove[j] - numChanged,
-            1
-          )
+          args[0] = spliceSlice(args[0], stuffToRemove[j] - numChanged, 1)
           numChanged++
         }
         if (Object.keys(abilityaliases).includes(args[0])) {
@@ -708,12 +648,12 @@ bot.on('message', message => {
           for (let i = 0; i < currentOne.length; i++) {
             if (
               currentOne[i] === '-' ||
-                            currentOne[i] === ' ' ||
-                            currentOne[i] === '.' ||
-                            currentOne[i] === ':' ||
-                            currentOne[i] === '%' ||
-                            currentOne[i] === "'" ||
-                            currentOne[i] === ','
+              currentOne[i] === ' ' ||
+              currentOne[i] === '.' ||
+              currentOne[i] === ':' ||
+              currentOne[i] === '%' ||
+              currentOne[i] === "'" ||
+              currentOne[i] === ','
             ) {
               stuffToRemove.push(i)
             }
@@ -729,9 +669,7 @@ bot.on('message', message => {
           args[0] = currentOne.toLowerCase()
         }
         if (!Object.keys(abilities).includes(args[0])) {
-          message.channel.send(
-            `I could not find ${args[0]} in my abilitydex.`
-          )
+          message.channel.send(`I could not find ${args[0]} in my abilitydex.`)
           break
         }
         let abilObj = abilities[args[0]]
@@ -746,13 +684,13 @@ bot.on('message', message => {
 
         break
 
-        // %source
+      // %source
       case 'source':
         message.reply('https://github.com/MegaPokeBot/MegaPokeBot')
 
         break
 
-        // %warn
+      // %warn
       case 'warn':
         if (!args[0]) {
           message.reply('Proper Usage:', { embed: help.warn })
@@ -782,9 +720,10 @@ bot.on('message', message => {
             .hasPermission('KICK_MEMBERS')
         ) {
           message.channel.send(
-            texts.noMod[
-              Math.floor(Math.random() * texts.noMod.length)
-            ].replace(/%u/g, message.author.tag)
+            texts.noMod[Math.floor(Math.random() * texts.noMod.length)].replace(
+              /%u/g,
+              message.author.tag
+            )
           )
           break
         }
@@ -797,9 +736,10 @@ bot.on('message', message => {
           )
           .catch(() => {})
         message.channel.send(
-          texts.warn[
-            Math.floor(Math.random() * texts.warn.length)
-          ].replace(/%u/g, bot.users.get(victimID).tag)
+          texts.warn[Math.floor(Math.random() * texts.warn.length)].replace(
+            /%u/g,
+            bot.users.get(victimID).tag
+          )
         )
         message.delete()
         break
@@ -853,16 +793,14 @@ bot.on('message', message => {
           )
           .catch(() => {})
         message.channel.send(
-          texts.mute[
-            Math.floor(Math.random() * texts.mute.length)
-          ].replace(/%u/g, bot.users.get(victimID).tag)
+          texts.mute[Math.floor(Math.random() * texts.mute.length)].replace(
+            /%u/g,
+            bot.users.get(victimID).tag
+          )
         )
         message.channel.members
           .get(victimID)
-          .addRole(
-            config.muteRoles[message.channel.guild.id],
-            args[2]
-          )
+          .addRole(config.muteRoles[message.channel.guild.id], args[2])
         setTimeout(() => {
           message.channel.members
             .get(victimID)
@@ -874,7 +812,7 @@ bot.on('message', message => {
         message.delete()
         break
 
-        // %kick (or %softban)
+      // %kick (or %softban)
       case 'kick':
       case 'softban':
         if (!args[0]) {
@@ -905,18 +843,19 @@ bot.on('message', message => {
             .hasPermission('KICK_MEMBERS')
         ) {
           message.channel.send(
-            texts.noMod[
-              Math.floor(Math.random() * texts.noMod.length)
-            ].replace(/%u/g, message.author.tag)
+            texts.noMod[Math.floor(Math.random() * texts.noMod.length)].replace(
+              /%u/g,
+              message.author.tag
+            )
           )
           break
         }
         bot.users
           .get(victimID)
           .send(
-            `You have been kicked from ${
-              message.channel.guild.name
-            }${args[1] ? ` with this message: ${args[1]}` : ''}`
+            `You have been kicked from ${message.channel.guild.name}${
+              args[1] ? ` with this message: ${args[1]}` : ''
+            }`
           )
           .then(() => {
             message.channel.members
@@ -942,13 +881,14 @@ bot.on('message', message => {
               })
           })
         message.channel.send(
-          texts.kick[
-            Math.floor(Math.random() * texts.kick.length)
-          ].replace(/%u/g, bot.users.get(victimID).tag)
+          texts.kick[Math.floor(Math.random() * texts.kick.length)].replace(
+            /%u/g,
+            bot.users.get(victimID).tag
+          )
         )
         message.delete()
         break
-        // %ban (or %hardban)
+      // %ban (or %hardban)
       case 'ban':
       case 'hardban':
         if (!args[0]) {
@@ -979,18 +919,19 @@ bot.on('message', message => {
             .hasPermission('BAN_MEMBERS')
         ) {
           message.channel.send(
-            texts.noMod[
-              Math.floor(Math.random() * texts.noMod.length)
-            ].replace(/%u/g, message.author.tag)
+            texts.noMod[Math.floor(Math.random() * texts.noMod.length)].replace(
+              /%u/g,
+              message.author.tag
+            )
           )
           break
         }
         bot.users
           .get(victimID)
           .send(
-            `You have been banned from ${
-              message.channel.guild.name
-            }${args[1] ? ` with this message: ${args[1]}` : ''}`
+            `You have been banned from ${message.channel.guild.name}${
+              args[1] ? ` with this message: ${args[1]}` : ''
+            }`
           )
           .then(() => {
             message.channel.members.get(victimID).ban({
@@ -1006,13 +947,14 @@ bot.on('message', message => {
             })
           })
         message.channel.send(
-          texts.ban[
-            Math.floor(Math.random() * texts.ban.length)
-          ].replace(/%u/g, bot.users.get(victimID).tag)
+          texts.ban[Math.floor(Math.random() * texts.ban.length)].replace(
+            /%u/g,
+            bot.users.get(victimID).tag
+          )
         )
         message.delete()
         break
-        // %help
+      // %help
       case 'help':
         switch (args[0]) {
           case 'help':
@@ -1076,9 +1018,7 @@ bot.on('message', message => {
             break
           default:
             if (args[0]) {
-              message.reply(
-                `There is no command called \`${args[0]}\``
-              )
+              message.reply(`There is no command called \`${args[0]}\``)
             }
             message.channel.send(
               new Discord.RichEmbed()
