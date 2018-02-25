@@ -861,6 +861,18 @@ bot.on('message', message => {
                 message.channel.guild.unban(victimID, 'Softban')
               })
           })
+          .catch(() => {
+            // The user probably cannot be DM'd
+            message.channel.members
+              .get(victimID)
+              .ban({
+                days: 1,
+                reason: args[1]
+              })
+              .then(() => {
+                message.channel.guild.unban(victimID, 'Softban')
+              })
+          })
         message.channel.send(
           texts.kick[Math.floor(Math.random() * texts.kick.length)].replace(
             /%u/g,
@@ -915,6 +927,15 @@ bot.on('message', message => {
             }`
           )
           .then(() => {
+            message.channel.members
+              .get(victimID)
+              .ban({
+                days: 7,
+                reason: args[1]
+              })
+          })
+          .catch(() => {
+            // The user probably cannot be DM'd
             message.channel.members
               .get(victimID)
               .ban({
