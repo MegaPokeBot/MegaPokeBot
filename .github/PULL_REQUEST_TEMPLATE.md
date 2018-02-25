@@ -6,6 +6,6 @@ Features Introduced
 -------------------
 What does this change do? Does it resolve an issue? Add a new command? Describe it here.
 
-Pages Affected
---------------
+Elements Affected
+-----------------
 What will this change affect? The entire bot? Just the 'dex? A certain command?
