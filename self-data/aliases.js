@@ -625,6 +625,7 @@ exports.PokeAliases = {
   // custom aliases
   megapokebot: 'Rowlet',
   megapoint_rightrobot: 'Rowlet',
+  competition: 'Beheeyem',
 
   // ultra beast codenames
   ub01: 'Nihilego',
