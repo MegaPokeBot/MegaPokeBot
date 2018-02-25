@@ -1,6 +1,7 @@
 <!--
   Hey! Thanks for submitting an issue!
   Please fill out the template below in order to submit your issue
+  If you are submitting an enhancement, just delete everything and describe it
 -->
 Usage info
 ----------
