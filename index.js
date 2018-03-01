@@ -302,7 +302,8 @@ bot.on('message', message => {
           new Discord.RichEmbed()
             .setAuthor('Pokédex')
             .setTitle(
-              `${dexObj.species} #${dexObj.num}`,
+              `${dexObj.species} #${dexObj.num}`)
+            .setThumbnail(
               `http://play.pokemonshowdown.com/sprites/xyani/${(fStr => {
                 switch (fStr) {
                   case 'ho-oh':
