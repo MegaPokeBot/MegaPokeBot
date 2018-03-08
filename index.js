@@ -160,7 +160,31 @@ const help = {
       `${prefix}ban | <user> | <reason>`,
       'Ban the user and specify a reason (requires ban members permission)'
     )
+    .setColor('#7ae576'),
+  prune: new Discord.RichEmbed()
+    .setAuthor('Bot Help')
+    .setTitle(`Command: ${prefix}prune`)
+    .setThumbnail(helpIcon)
+    .addField('Usage', `**${prefix}prune | [user] | <number>**`, true)
+    .addField('Aliases', `**${prefix}purge**`, true)
+    .addField(
+      `${prefix}prune | <number>`,
+      'Prune a number of messages (requires manage messages permission)'
+    )
+    .addField(
+      `${prefix}prune | <user> | <number>`,
+      'Prune a number of messages by the user (requires manage messages permission)'
+    )
     .setColor('#7ae576')
+}
+/**
+ * Gets `count` last items from an array
+ * @param {Array} array - The array
+ * @param {number} count - The number of last items to get
+ * @returns {Array} - The modified array
+ */
+function arrayLast (array, count) {
+  return array.splice(array.length - count)
 }
 
 function spliceSlice (str, index, count, add) {
@@ -301,8 +325,7 @@ bot.on('message', message => {
         message.channel.send(
           new Discord.RichEmbed()
             .setAuthor('Pokédex')
-            .setTitle(
-              `${dexObj.species} #${dexObj.num}`)
+            .setTitle(`${dexObj.species} #${dexObj.num}`)
             .setThumbnail(
               `http://play.pokemonshowdown.com/sprites/xyani/${(fStr => {
                 switch (fStr) {
@@ -955,6 +978,72 @@ bot.on('message', message => {
         )
         message.delete()
         break
+      // %prune (or %purge)
+      case 'prune':
+      case 'purge':
+        if (!args[0]) {
+          message.reply('Proper Usage:', { embed: help.prune })
+          break
+        }
+        // Check if in a server
+        if (message.channel.type !== 'text') {
+          message.reply("I'm pretty sure I can't do that here.")
+          break
+        }
+        // Check for mod status (manage messages)
+        if (
+          !message.channel.guild.members
+            .get(message.author.id)
+            .hasPermission('MANAGE_MESSAGES')
+        ) {
+          message.channel.send(
+            texts.noMod[Math.floor(Math.random() * texts.noMod.length)].replace(
+              /%u/g,
+              message.author.tag
+            )
+          )
+          break
+        }
+        if (args[1]) {
+          victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '')
+          message.channel
+            .bulkDelete(
+              arrayLast(
+                message.channel.messages.findAll(
+                  'author',
+                  bot.users.get(victimID)
+                ),
+                victimID === message.author.id
+                  ? Number(args[1]) + 1
+                  : Number(args[1])
+              )
+            )
+            .then(messages =>
+              message.channel.send(
+                texts.prune[
+                  Math.floor(Math.random() * texts.prune.length)
+                ].replace(
+                  /%m/g,
+                  messages.size
+                )
+              )
+            )
+            .catch(() => {})
+          message.delete()
+        } else {
+          message.channel
+            .bulkDelete(Number(args[0]) + 1)
+            .then(messages =>
+              message.channel.send(
+                texts.prune[
+                  Math.floor(Math.random() * texts.prune.length)
+                ].replace(/%m/g, messages.size - 1)
+              )
+            )
+            .catch(() => {})
+        }
+
+        break
       // %help
       case 'help':
         switch (args[0]) {
@@ -1016,6 +1105,12 @@ bot.on('message', message => {
           case 'hardban':
           case `${prefix}hardban`:
             message.channel.send(help.ban)
+            break
+          case 'prune':
+          case `${prefix}prune`:
+          case 'purge':
+          case `${prefix}purge`:
+            message.channel.send(help.prune)
             break
           default:
             if (args[0]) {
