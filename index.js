@@ -1006,6 +1006,9 @@ bot.on('message', message => {
         }
         if (args[1]) {
           victimID = args[0].replace(/<@!?/g, '').replace(/>/g, '')
+          if (Number(args[1]) >= 100) {
+            args[1] = 99
+          }
           message.channel
             .bulkDelete(
               arrayLast(
@@ -1022,15 +1025,15 @@ bot.on('message', message => {
               message.channel.send(
                 texts.prune[
                   Math.floor(Math.random() * texts.prune.length)
-                ].replace(
-                  /%m/g,
-                  messages.size
-                )
+                ].replace(/%m/g, messages.size)
               )
             )
             .catch(() => {})
           message.delete()
         } else {
+          if (Number(args[0]) >= 100) {
+            args[0] = 99
+          }
           message.channel
             .bulkDelete(Number(args[0]) + 1)
             .then(messages =>
@@ -1121,7 +1124,7 @@ bot.on('message', message => {
                 .setAuthor('Bot Help')
                 .setThumbnail(helpIcon)
                 .setDescription(
-                  `Bot: \`${prefix}help\`, \`${prefix}ping\`,  \`${prefix}source\`\nPokémon: \`${prefix}pokedex\`, \`${prefix}movedex\`, \`${prefix}itemdex\`, \`${prefix}abilitydex\` \`${prefix}randmon\`\nModeration: \`${prefix}warn\`, \`${prefix}mute\`, \`${prefix}kick\`, \`${prefix}ban\`\nMisc: \`${prefix}god\``
+                  `Bot: \`${prefix}help\`, \`${prefix}ping\`,  \`${prefix}source\`\nPokémon: \`${prefix}pokedex\`, \`${prefix}movedex\`, \`${prefix}itemdex\`, \`${prefix}abilitydex\` \`${prefix}randmon\`\nModeration: \`${prefix}warn\`, \`${prefix}mute\`, \`${prefix}kick\`, \`${prefix}ban\`, \`${prefix}prune\`\nMisc: \`${prefix}god\``
                 )
                 .setFooter(
                   `use ${prefix}help | <command> for command-specific help`
