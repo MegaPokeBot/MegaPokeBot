@@ -1,17 +1,18 @@
 {
-    "warn": [
-        "**%u**'s Rule Breaker! %u breaks the rules!",
-        "Moderator's Ban Warning! **%u** started breaking the rules!"
-    ],
-    "mute": [
-        "**%u**: ..................................................................."
-    ],
-    "kick": [
-        "Moderator used Server Kick. It's super effective on the opposing **%u**!"
-    ],
-    "ban": [
-        "Moderator used Ban! **%u** cannot use send message after the ban!",
-        "Moderator's Ban! **%u**'s rule break was disabled!"
-    ],
-    "noMod": ["**%u** has no moderator perms! %u used Struggle!"]
+  "warn": [
+    "**%u**'s Rule Breaker! %u breaks the rules!",
+    "Moderator's Ban Warning! **%u** started breaking the rules!"
+  ],
+  "mute": [
+    "**%u**: ..................................................................."
+  ],
+  "kick": [
+    "Moderator used Server Kick. It's super effective on the opposing **%u**!"
+  ],
+  "ban": [
+    "Moderator used Ban! **%u** cannot use send message after the ban!",
+    "Moderator's Ban! **%u**'s rule break was disabled!"
+  ],
+  "noMod": ["**%u** has no moderator perms! %u used Struggle!"],
+  "prune": ["**%m** message(s) fainted!"]
 }
