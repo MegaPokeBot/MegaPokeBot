@@ -16,7 +16,7 @@
         "start": "node index.js",
         "pull": "node spam-git-pull.js",
         "listen": "nodemon index.js",
-        "server": "run-p pull listen",
+        "server": "node spawner.js",
         "git-pull": "git pull",
         "git-sub": "git submodule update --recursive"
     },
@@ -36,8 +36,6 @@
         "prettier-eslint": "^8.8.1"
     },
     "optionalDependencies": {
-        "bufferutil": "^3.0.3",
-        "nodemon": "^1.14.11",
-        "npm-run-all": "^4.1.2"
+        "bufferutil": "^3.0.3"
     }
 }
