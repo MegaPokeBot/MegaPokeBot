@@ -2,6 +2,7 @@
 ## v3.0.0
  - Switched to commando
  - Removed mod commands for security reasons
+ - Removed the useless `%god` magikarp command. We won't miss you.
 ## v2.0.2
 Fixed `%pd` images
 ## v2.0.1
