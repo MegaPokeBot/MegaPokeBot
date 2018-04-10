@@ -42,7 +42,7 @@ module.exports = function parseArg (value, aliases) {
       currentOne = spliceSlice(currentOne, stuffToRemove[i] - numChanged, 1)
       numChanged++
     }
-    modifiedValue = currentOne.toLowerCase()
+    modifiedValue = currentOne
   }
-  return modifiedValue
+  return modifiedValue.toLowerCase()
 }

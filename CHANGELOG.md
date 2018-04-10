@@ -1,4 +1,7 @@
 # Changelog
+## v3.0.1
+Fixed the bug that disallowed capital letters in `dex:*` commands
+
 ## v3.0.0
  - Switched to commando
  - Removed mod commands for security reasons
