@@ -4,7 +4,7 @@
         "node": ">=4",
         "yarn": "^1.3.2"
     },
-    "version": "0.1.1",
+    "version": "2.0.2",
     "description": "A Pokemon Discord bot",
     "main": "index.js",
     "repository": "bitbucket:megapokebot/megapokebot",
