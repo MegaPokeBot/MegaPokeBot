@@ -628,9 +628,9 @@ exports.PokeAliases = {
   competition: 'Beheeyem',
   
   // bug fixes
-  flabébé: 'Flabebe',
-  nidoran♀: 'nidoranf',
-  nidoran♂: 'nidoranm',
+  'flabébé': 'Flabebe',
+  'nidoran♀': 'nidoranf',
+  'nidoran♂': 'nidoranm',
   
   // ultra beast codenames
   ub01: 'Nihilego',
