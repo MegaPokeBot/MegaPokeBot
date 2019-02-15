@@ -62,3 +62,4 @@ typings/
 
 # Auth token and other personal config
 .config.json
+settings.sqlite3
