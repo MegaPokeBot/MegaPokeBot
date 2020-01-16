@@ -46,14 +46,6 @@ const help = {
     .setThumbnail(helpIcon)
     .addField('Usage', `**${prefix}ping**`)
     .addField(`${prefix}ping`, 'Pings the bot')
-    .setColor('#7ae576'),
-  god: new Discord.RichEmbed()
-    .setAuthor('Bot Help')
-    .setTitle(`Command: ${prefix}god`)
-    .setThumbnail(helpIcon)
-    .addField('Usage', `**${prefix}god**`)
-    .addField(`${prefix}god`, 'Sends the god of all Pokémon')
-    .setColor('#7ae576'),
   randmon: new Discord.RichEmbed()
     .setAuthor('Bot Help')
     .setTitle(`Command: ${prefix}randmon`)
@@ -635,11 +627,6 @@ bot.on('message', message => {
 
         break
 
-      // %god
-      case 'god':
-        message.channel.send('<a:godnitro:404791673617514496>')
-        break
-
       case 'abilitydex':
       case 'ad':
         if (!args[0]) {
@@ -1120,7 +1107,7 @@ bot.on('message', message => {
                 .setAuthor('Bot Help')
                 .setThumbnail(helpIcon)
                 .setDescription(
-                  `Bot: \`${prefix}help\`, \`${prefix}ping\`,  \`${prefix}source\`\nPokémon: \`${prefix}pokedex\`, \`${prefix}movedex\`, \`${prefix}itemdex\`, \`${prefix}abilitydex\` \`${prefix}randmon\`\nModeration: \`${prefix}warn\`, \`${prefix}mute\`, \`${prefix}kick\`, \`${prefix}ban\`, \`${prefix}prune\`\nMisc: \`${prefix}god\``
+                  `Bot: \`${prefix}help\`, \`${prefix}ping\`,  \`${prefix}source\`\nPokémon: \`${prefix}pokedex\`, \`${prefix}movedex\`, \`${prefix}itemdex\`, \`${prefix}abilitydex\` \`${prefix}randmon\`\nModeration: \`${prefix}warn\`, \`${prefix}mute\`, \`${prefix}kick\`, \`${prefix}ban\`, \`${prefix}prune\``
                 )
                 .setFooter(
                   `use ${prefix}help | <command> for command-specific help`
