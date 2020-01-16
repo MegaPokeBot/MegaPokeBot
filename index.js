@@ -45,7 +45,7 @@ const help = {
     .setTitle(`Command: ${prefix}ping`)
     .setThumbnail(helpIcon)
     .addField('Usage', `**${prefix}ping**`)
-    .addField(`${prefix}ping`, 'Pings the bot')
+    .addField(`${prefix}ping`, 'Pings the bot'),
   randmon: new Discord.RichEmbed()
     .setAuthor('Bot Help')
     .setTitle(`Command: ${prefix}randmon`)
