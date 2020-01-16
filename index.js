@@ -1085,10 +1085,6 @@ bot.on('message', message => {
             message.channel.send(help.randmon)
 
             break
-          case 'god':
-          case `${prefix}god`:
-            message.channel.send(help.god)
-            break
           case 'warn':
           case `${prefix}warn`:
             message.channel.send(help.warn)
